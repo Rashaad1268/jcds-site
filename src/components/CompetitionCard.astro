@@ -1,0 +1,236 @@
+---
+import type { Competition } from "../data/competitions";
+
+interface Props {
+	competition: Competition;
+}
+
+const { competition } = Astro.props;
+const href = `/competitions/${competition.slug}/`;
+const modeClass = `mode-${competition.mode}`;
+const registrationStatus = competition.registrationUrl
+	? "Registration open"
+	: competition.registrationLabel;
+---
+
+<article class="competition-card">
+	<a class="card-link focus-gold" href={href} aria-label={`View ${competition.title}`}>
+		<div class="card-topline">
+			<span class:list={["mode-badge", modeClass]}>{competition.modeLabel}</span>
+			<span class="provisional-badge">Provisional</span>
+		</div>
+
+		<div class="card-copy">
+			<h3>{competition.shortTitle}</h3>
+			<p>{competition.summary}</p>
+		</div>
+
+		<dl class="card-meta">
+			<div>
+				<dt>Date</dt>
+				<dd>
+					<time datetime={competition.dates.startDate}>{competition.dates.displayDate}</time>
+				</dd>
+			</div>
+			<div>
+				<dt>{competition.location ? "Location" : "Entry method"}</dt>
+				<dd>{competition.location ?? competition.modeLabel}</dd>
+			</div>
+		</dl>
+
+		<div class="card-footer">
+			<span class:list={["registration-status", { open: Boolean(competition.registrationUrl) }]}>
+				<span class="status-dot" aria-hidden="true"></span>{registrationStatus}
+			</span>
+			<span class="view-link">View competition <span aria-hidden="true">→</span></span>
+		</div>
+	</a>
+</article>
+
+<style>
+	.competition-card {
+		height: 100%;
+		border: 1px solid var(--border-soft);
+		border-top-color: var(--border-gold);
+		border-radius: var(--radius-card);
+		background: var(--surface-card);
+		box-shadow: 0 1.25rem 3rem rgb(0 0 0 / 0.16);
+		overflow: clip;
+		transition:
+			border-color 200ms var(--ease-ceremonial),
+			transform 200ms var(--ease-ceremonial);
+	}
+
+	.card-link {
+		display: flex;
+		min-height: 21rem;
+		height: 100%;
+		flex-direction: column;
+		padding: clamp(1.35rem, 3vw, 1.8rem);
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.card-topline {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.mode-badge,
+	.provisional-badge {
+		display: inline-flex;
+		min-height: 1.75rem;
+		align-items: center;
+		padding-inline: 0.68rem;
+		border: 1px solid;
+		border-radius: 999px;
+		font-size: 0.64rem;
+		font-weight: 700;
+		letter-spacing: 0.09em;
+		line-height: 1;
+		text-transform: uppercase;
+	}
+
+	.mode-online {
+		border-color: var(--color-gold-500);
+		color: var(--color-gold-300);
+	}
+
+	.mode-on-site {
+		border-color: rgb(246 241 232 / 0.42);
+		color: var(--color-ivory-100);
+	}
+
+	.mode-physical-submission {
+		border-color: rgb(191 33 33 / 0.75);
+		color: #e88383;
+	}
+
+	.provisional-badge {
+		border-color: transparent;
+		padding-inline: 0;
+		color: var(--color-ivory-500);
+	}
+
+	.card-copy {
+		padding-block: 2rem 1.5rem;
+	}
+
+	.card-copy h3 {
+		margin: 0 0 0.75rem;
+		color: var(--color-gold-300);
+		font-family: var(--font-display);
+		font-size: clamp(1.7rem, 3vw, 2.1rem);
+		font-weight: 600;
+		line-height: 1.05;
+		text-wrap: balance;
+	}
+
+	.card-copy p {
+		margin: 0;
+		color: var(--color-ivory-300);
+		font-size: 0.9rem;
+		line-height: 1.65;
+	}
+
+	.card-meta {
+		display: grid;
+		gap: 0.85rem;
+		margin: auto 0 1.35rem;
+	}
+
+	.card-meta div {
+		display: grid;
+		grid-template-columns: 5.75rem minmax(0, 1fr);
+		gap: 0.8rem;
+		padding-top: 0.75rem;
+		border-top: 1px solid var(--border-soft);
+	}
+
+	.card-meta dt,
+	.card-meta dd {
+		margin: 0;
+	}
+
+	.card-meta dt {
+		color: var(--color-ivory-500);
+		font-size: 0.66rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.card-meta dd {
+		color: var(--color-ivory-100);
+		font-size: 0.76rem;
+		font-weight: 500;
+		line-height: 1.45;
+	}
+
+	.card-footer {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--border-gold);
+	}
+
+	.registration-status {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		color: var(--color-ivory-500);
+		font-size: 0.66rem;
+		font-weight: 600;
+		line-height: 1.35;
+	}
+
+	.status-dot {
+		width: 0.35rem;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		background: var(--color-ivory-500);
+	}
+
+	.registration-status.open {
+		color: var(--color-gold-300);
+	}
+
+	.registration-status.open .status-dot {
+		background: var(--color-gold-300);
+	}
+
+	.view-link {
+		flex: 0 0 auto;
+		color: var(--color-gold-300);
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+	}
+
+	.view-link span {
+		display: inline-block;
+		transition: transform 180ms var(--ease-ceremonial);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.competition-card:hover {
+			border-color: var(--border-gold);
+			transform: translateY(-2px);
+		}
+
+		.competition-card:hover .view-link span {
+			transform: translateX(3px);
+		}
+	}
+
+	@media (max-width: 24rem) {
+		.card-footer {
+			align-items: flex-start;
+			flex-direction: column;
+		}
+	}
+</style>

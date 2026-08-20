@@ -1,0 +1,951 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import CompetitionCard from "@/components/CompetitionCard.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import { competitions } from "@/data/competitions";
+import { ceremonyHighlights, club, event, publicTimeline, registration } from "@/data/site";
+
+export const prerender = true;
+---
+
+<BaseLayout
+	title="MUSUBI 2026 | Japanese Club of D. S. Senanayake College"
+	description="MUSUBI 2026 brings Sri Lankan schools together through Japanese language, culture, creativity, and inter-school competition."
+	socialImage="/assets/social/musubi-social.png"
+>
+	<section class="hero" aria-labelledby="hero-title">
+		<div class="hero-ink" aria-hidden="true"></div>
+		<div class="site-container-wide hero-grid">
+			<div class="hero-copy">
+				<p class="eyebrow">Japanese Club · D. S. Senanayake College</p>
+				<img
+					class="musubi-wordmark"
+					src="/assets/brand/musubi-horizontal.png"
+					width="1489"
+					height="533"
+					alt=""
+					fetchpriority="high"
+				/>
+				<h1 id="hero-title">MUSUBI <span>2026</span></h1>
+				<p class="hero-lede">
+					Students from schools across Sri Lanka are invited to take part in Japanese language, art,
+					performance, and culture.
+				</p>
+				<div class="hero-actions">
+					<a class="primary-action focus-gold" href="#competitions">Explore competitions</a>
+					<a class="text-action focus-gold" href="#musubi"
+						>Discover MUSUBI <span aria-hidden="true">↘</span></a
+					>
+				</div>
+				<dl class="hero-facts" aria-label="MUSUBI event summary">
+					<div><dt>Date <span>· Provisional</span></dt><dd>{event.dateLabel}</dd></div>
+					<div><dt>Venue</dt><dd>Main Hall · Colombo 07</dd></div>
+					<div><dt>Programme</dt><dd>9 inter-school competitions</dd></div>
+				</dl>
+			</div>
+			<figure class="hero-art">
+				<div class="art-mat">
+					<img
+						src="/assets/images/zeshin-sun-plum.webp"
+						width="1400"
+						height="1773"
+						alt="A red sun among spare plum branches in an Edo-period lacquer painting."
+						fetchpriority="high"
+					/>
+					<img
+						class="year-mark"
+						src="/assets/brand/musubi-26.png"
+						width="900"
+						height="493"
+						alt=""
+						aria-hidden="true"
+					/>
+				</div>
+				<figcaption>
+					<span>01</span> Shibata Zeshin, <cite>Sun and Plum Branches</cite> · The Met · Public Domain
+				</figcaption>
+			</figure>
+		</div>
+		<p class="vertical-note" aria-hidden="true"><span lang="ja">結ぶ</span> · CONNECT</p>
+	</section>
+
+	<section id="musubi" class="section-shell-compact opening-note">
+		<div class="site-container opening-grid">
+			<p class="section-index" aria-hidden="true">むすび / 01</p>
+			<div>
+				<p class="eyebrow">The idea / 結び</p><h2 class="section-title">Why we call it MUSUBI</h2>
+			</div>
+			<p>
+				The Japanese word <span lang="ja">むすび</span> can express connection and the act of bringing
+				people together. That is the idea behind MUSUBI 2026: schools meeting through Japanese language,
+				culture, and creativity.
+			</p>
+		</div>
+	</section>
+
+	<section
+		id="competitions"
+		class="section-shell competitions-section"
+		aria-labelledby="competitions-title"
+	>
+		<div class="site-container">
+			<div class="section-intro">
+				<p class="section-index" aria-hidden="true">競技 / 02</p>
+				<SectionHeading
+					id="competitions-title"
+					eyebrow="Inter-school programme / 競技"
+					title="Nine competitions for Sri Lankan schools"
+					description="The proposed programme covers language, performance, knowledge, costume, paper craft, and visual art. Every date and arrangement is still provisional."
+				/>
+				<a class="section-link" href="/competitions/"
+					>View programme by mode <span aria-hidden="true">→</span></a
+				>
+			</div>
+			<div class="competition-grid">
+				{competitions.map((competition) => <CompetitionCard {competition} />)}
+			</div>
+		</div>
+	</section>
+
+	<section class="japanese-day" aria-labelledby="day-title">
+		<figure class="day-art">
+			<img
+				src="/assets/images/kiitsu-plum-camellia.webp"
+				width="1900"
+				height="874"
+				alt="Flowering plum and camellia branches across a gold Japanese folding screen."
+				loading="lazy"
+			/>
+			<figcaption>
+				Suzuki Kiitsu, <cite>Flowering Plum and Camellia</cite>, c. 1850s · Honolulu Museum of Art ·
+				Public Domain
+			</figcaption>
+		</figure>
+		<div class="site-container day-overlay">
+			<div class="day-copy">
+				<p class="eyebrow">Japanese Day / 日本の日</p>
+				<h2 id="day-title">Japanese Day brings everyone together.</h2>
+				<p>{event.purpose}</p>
+				<dl>
+					<div><dt>Date</dt><dd>{event.dateLabel}</dd></div>
+					<div><dt>Venue</dt><dd>{event.venue}</dd></div>
+					<div><dt>Audience</dt><dd>{event.attendanceLabel}</dd></div>
+				</dl>
+			</div>
+		</div>
+	</section>
+
+	<section class="section-shell ceremony-section" aria-labelledby="ceremony-title">
+		<div class="site-container ceremony-grid">
+			<div class="ceremony-heading">
+				<p class="section-index" aria-hidden="true">式典 / 03</p>
+				<SectionHeading
+					id="ceremony-title"
+					eyebrow="The day / 当日"
+					title="What is planned for Japanese Day"
+					description="The proposed programme welcomes participating schools, presents the awards, and shares traditional and contemporary Japanese culture."
+				/>
+			</div>
+			<ol class="ceremony-list">
+				{
+					ceremonyHighlights.map((item, index) => (
+						<li>
+							<>
+								<span>{String(index + 1).padStart(2, "0")}</span>
+								<div>
+									<>
+										<h3>{item.title}</h3>
+										<p>{item.description}</p>
+									</>
+								</div>
+							</>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+
+	<section id="timeline" class="section-shell timeline-section" aria-labelledby="timeline-title">
+		<div class="site-container timeline-shell">
+			<div class="timeline-heading">
+				<p class="section-index" aria-hidden="true">日程 / 04</p>
+				<SectionHeading
+					id="timeline-title"
+					eyebrow="Proposed timeline / 日程"
+					title="From registration to Japanese Day"
+					description="The proposal’s public milestones are presented here as a working timeline. Each remains subject to final confirmation."
+				/>
+			</div>
+			<ol class="timeline-list">
+				{
+					publicTimeline.map((item, index) => (
+						<li>
+							<div class="timeline-number">{String(index + 1).padStart(2, "0")}</div>
+							<div>
+								<>
+									<time datetime={item.startDate}>{item.displayDate}</time>
+									<h3>{item.label}</h3>
+									<p>{item.description}</p>
+								</>
+							</div>
+							<span class="provisional-mark">Provisional</span>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+
+	<section id="club" class="section-shell club-section" aria-labelledby="club-title">
+		<div class="site-container club-grid">
+			<figure class="school-figure">
+				<img
+					src="/assets/images/dssc-entrance.webp"
+					width="1600"
+					height="900"
+					alt="The entrance of D. S. Senanayake College in Colombo 07."
+					loading="lazy"
+				/>
+				<figcaption>
+					<span>D. S. Senanayake College · Colombo 07</span><a href="/credits/"
+						>Photo credit and sources</a
+					>
+				</figcaption>
+			</figure>
+			<div class="club-copy">
+				<img
+					class="club-logo"
+					src="/assets/brand/club-logo-light.png"
+					width="1000"
+					height="901"
+					alt="Japanese Club of D. S. Senanayake College logo"
+					loading="lazy"
+				/>
+				<p class="eyebrow">The club / 日本語クラブ</p>
+				<h2 id="club-title" class="section-title">Learning Japanese and sharing its culture.</h2>
+				<p class="club-intro">{club.introduction}</p>
+				<div class="principles">
+					<div><h3>Vision</h3><p>{club.vision}</p></div>
+					<div><h3>Mission</h3><p>{club.mission}</p></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section
+		id="registration"
+		class="section-shell registration-band"
+		aria-labelledby="registration-title"
+	>
+		<div class="site-container registration-grid">
+			<div class="registration-mark" aria-hidden="true">
+				<img
+					src="/assets/brand/musubi-vertical.png"
+					width="477"
+					height="1500"
+					alt=""
+					loading="lazy"
+				/>
+			</div>
+			<div>
+				<p class="eyebrow">School registration / 申込</p>
+				<h2 id="registration-title" class="display-title">{registration.displayDate}</h2>
+				<p>{registration.description}</p>
+			</div>
+			<div class="registration-status" aria-live="polite">
+				<span aria-hidden="true"></span>
+				<strong>{registration.linkLabel}</strong>
+				<small
+					>The approved Google Form will replace this status. No placeholder URL is active.</small
+				>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.hero {
+		position: relative;
+		isolation: isolate;
+		min-height: calc(100svh - 5rem);
+		overflow: hidden;
+		border-bottom: 1px solid var(--border-soft);
+		background:
+			linear-gradient(
+				112deg,
+				rgb(15 13 11 / 0.96) 0 48%,
+				rgb(15 13 11 / 0.5) 72%,
+				rgb(15 13 11 / 0.88)
+			),
+			url("/assets/images/soami-landscape.webp") center / cover;
+	}
+	.hero::before {
+		position: absolute;
+		z-index: -1;
+		inset: 0;
+		background: linear-gradient(
+			90deg,
+			transparent 0 49.9%,
+			rgb(225 194 147 / 0.15) 50%,
+			transparent 50.1%
+		);
+		content: "";
+	}
+	.hero-ink {
+		position: absolute;
+		z-index: -1;
+		top: 8%;
+		left: 31%;
+		width: 28rem;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		background: rgb(150 25 25 / 0.12);
+		filter: blur(1px);
+	}
+	.hero-grid {
+		display: grid;
+		min-height: calc(100svh - 5rem);
+		grid-template-columns: minmax(0, 1.1fr) minmax(20rem, 0.78fr);
+		align-items: center;
+		gap: clamp(3rem, 7vw, 7rem);
+		padding-block: clamp(4rem, 8vw, 7.5rem) 3rem;
+	}
+	.hero-copy {
+		position: relative;
+		z-index: 2;
+	}
+	.musubi-wordmark {
+		width: min(100%, 42rem);
+		height: auto;
+		margin-block: -1.2rem -0.2rem;
+		filter: drop-shadow(0 0.8rem 2.5rem rgb(0 0 0 / 0.42));
+	}
+	.hero h1 {
+		margin: 0;
+		color: var(--color-ivory-50);
+		font-family: var(--font-display);
+		font-size: clamp(3.75rem, 8.5vw, 8rem);
+		font-weight: 600;
+		line-height: 0.76;
+		letter-spacing: -0.045em;
+	}
+	.hero h1 span {
+		margin-inline-start: 0.1em;
+		color: var(--color-gold-300);
+		font-size: 0.5em;
+		font-style: italic;
+		letter-spacing: -0.01em;
+	}
+	.hero-lede {
+		max-width: 40rem;
+		margin-block: 2.2rem 0;
+		color: var(--color-ivory-300);
+		font-family: var(--font-display);
+		font-size: clamp(1.35rem, 2.4vw, 2rem);
+		line-height: 1.28;
+		text-wrap: balance;
+	}
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 1rem 1.75rem;
+		margin-top: 2rem;
+	}
+	.primary-action {
+		display: inline-flex;
+		min-height: 3.25rem;
+		align-items: center;
+		padding-inline: 1.25rem;
+		border: 1px solid var(--color-vermilion-500);
+		background: var(--color-vermilion-650);
+		font-size: 0.76rem;
+		font-weight: 700;
+		letter-spacing: 0.09em;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+	.primary-action:hover {
+		background: var(--color-vermilion-500);
+	}
+	.text-action {
+		color: var(--color-gold-300);
+		font-size: 0.76rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+	.text-action span {
+		margin-inline-start: 0.5rem;
+	}
+	.hero-facts {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0;
+		margin: clamp(3rem, 6vw, 5.5rem) 0 0;
+		border-block: 1px solid var(--border-gold);
+	}
+	.hero-facts div {
+		padding: 1rem 1.2rem 1rem 0;
+	}
+	.hero-facts div + div {
+		padding-inline-start: 1.2rem;
+		border-inline-start: 1px solid var(--border-soft);
+	}
+	.hero-facts dt {
+		color: var(--color-gold-300);
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+	.hero-facts dt span {
+		color: var(--color-ivory-500);
+	}
+	.hero-facts dd {
+		margin: 0.35rem 0 0;
+		color: var(--color-ivory-100);
+		font-size: 0.78rem;
+		line-height: 1.45;
+	}
+	.hero-art {
+		position: relative;
+		margin: 0;
+	}
+	.art-mat {
+		position: relative;
+		padding: 0.7rem;
+		border: 1px solid var(--color-gold-500);
+		background: var(--color-ink-900);
+		box-shadow: 1.8rem 2.2rem 5rem rgb(0 0 0 / 0.5);
+		transform: rotate(1.2deg);
+	}
+	.art-mat > img:first-child {
+		width: 100%;
+		max-height: 68svh;
+		object-fit: cover;
+		object-position: center;
+	}
+	.year-mark {
+		position: absolute;
+		right: -9%;
+		bottom: -4%;
+		width: 54%;
+		filter: drop-shadow(0 0.5rem 1.2rem rgb(0 0 0 / 0.7));
+		transform: rotate(-5deg);
+	}
+	.hero-art figcaption {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0.8rem;
+		margin-top: 1rem;
+		color: var(--color-ivory-500);
+		font-size: 0.62rem;
+		line-height: 1.5;
+	}
+	.hero-art figcaption span {
+		color: var(--color-gold-300);
+		font-weight: 700;
+		letter-spacing: 0.12em;
+	}
+	.vertical-note {
+		position: absolute;
+		right: max(0.5rem, calc((100vw - 88rem) / 2));
+		bottom: 2rem;
+		margin: 0;
+		color: var(--color-ivory-500);
+		font-size: 0.58rem;
+		font-weight: 700;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		writing-mode: vertical-rl;
+	}
+	.opening-note {
+		border-block: 1px solid var(--border-soft);
+		background:
+			radial-gradient(circle at 8% 50%, rgb(150 25 25 / 0.24), transparent 28rem),
+			linear-gradient(135deg, #241512, var(--color-ink-900) 62%, #19130f);
+		color: var(--color-ivory-50);
+	}
+	.opening-grid {
+		display: grid;
+		grid-template-columns: 0.45fr 1fr 1.2fr;
+		align-items: start;
+		gap: clamp(2rem, 5vw, 5rem);
+	}
+	.opening-note .section-title {
+		color: var(--color-gold-300);
+	}
+	.opening-note .eyebrow {
+		color: #e86a61;
+	}
+	.opening-note .section-index {
+		color: var(--color-gold-300);
+	}
+	.opening-note p:last-child {
+		margin: 0;
+		color: var(--color-ivory-300);
+		font-family: var(--font-display);
+		font-size: clamp(1.15rem, 2vw, 1.5rem);
+		line-height: 1.5;
+	}
+	.section-index {
+		margin: 0;
+		color: var(--color-gold-650);
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+	}
+	.competitions-section {
+		background: linear-gradient(180deg, #15110e, var(--color-ink-950) 14% 88%, #14100e);
+	}
+	.section-intro {
+		display: grid;
+		grid-template-columns: 0.35fr minmax(0, 1.5fr) 0.55fr;
+		align-items: end;
+		gap: clamp(2rem, 5vw, 5rem);
+		margin-bottom: clamp(3rem, 6vw, 5rem);
+	}
+	.section-link {
+		align-self: end;
+		padding-bottom: 0.5rem;
+		color: var(--color-gold-300);
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+	.competition-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1.15rem;
+	}
+	.japanese-day {
+		position: relative;
+		min-height: 42rem;
+		overflow: hidden;
+		border-block: 1px solid var(--border-gold);
+	}
+	.day-art {
+		position: absolute;
+		inset: 0;
+		margin: 0;
+	}
+	.day-art::after {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			90deg,
+			rgb(15 13 11 / 0.96) 0 42%,
+			rgb(15 13 11 / 0.5) 68%,
+			rgb(15 13 11 / 0.68)
+		);
+		content: "";
+	}
+	.day-art img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.day-art figcaption {
+		position: absolute;
+		z-index: 1;
+		right: 1.5rem;
+		bottom: 1rem;
+		max-width: 30rem;
+		color: rgb(246 241 232 / 0.62);
+		font-size: 0.58rem;
+		text-align: right;
+	}
+	.day-overlay {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		min-height: 42rem;
+		align-items: center;
+	}
+	.day-copy {
+		max-width: 40rem;
+	}
+	.day-copy h2 {
+		margin: 0;
+		color: var(--color-gold-300);
+		font-family: var(--font-display);
+		font-size: clamp(3rem, 7vw, 6rem);
+		font-weight: 600;
+		line-height: 0.9;
+	}
+	.day-copy > p:not(.eyebrow) {
+		margin-top: 2rem;
+		color: var(--color-ivory-100);
+		font-family: var(--font-display);
+		font-size: clamp(1.2rem, 2vw, 1.55rem);
+		line-height: 1.5;
+	}
+	.day-copy dl {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		margin: 3rem 0 0;
+		border-block: 1px solid var(--border-gold);
+	}
+	.day-copy dl div {
+		padding: 1rem;
+	}
+	.day-copy dl div:first-child {
+		padding-left: 0;
+	}
+	.day-copy dl div + div {
+		border-left: 1px solid var(--border-soft);
+	}
+	.day-copy dt {
+		color: var(--color-gold-300);
+		font-size: 0.62rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+	.day-copy dd {
+		margin: 0.35rem 0 0;
+		color: var(--color-ivory-100);
+		font-size: 0.75rem;
+	}
+	.ceremony-section {
+		border-bottom: 1px solid var(--border-soft);
+		background:
+			radial-gradient(circle at 3% 14%, rgb(150 25 25 / 0.2), transparent 31rem),
+			linear-gradient(180deg, #1f1612, var(--color-ink-900) 58%, #14110e);
+		color: var(--color-ivory-50);
+	}
+	.ceremony-grid {
+		display: grid;
+		grid-template-columns: 0.9fr 1.1fr;
+		gap: clamp(3rem, 8vw, 8rem);
+	}
+	.ceremony-heading {
+		position: sticky;
+		top: 8rem;
+		align-self: start;
+	}
+	.ceremony-section :global(.section-title) {
+		color: var(--color-gold-300);
+	}
+	.ceremony-section :global(.heading-description) {
+		color: var(--color-ivory-300);
+	}
+	.ceremony-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.ceremony-list li {
+		display: grid;
+		grid-template-columns: 3.5rem 1fr;
+		gap: 1.5rem;
+		padding-block: 1.5rem;
+		border-top: 1px solid var(--border-soft);
+	}
+	.ceremony-list li:last-child {
+		border-bottom: 1px solid var(--border-soft);
+	}
+	.ceremony-list > li > span {
+		color: #e15a52;
+		font-family: var(--font-display);
+		font-size: 1.35rem;
+	}
+	.ceremony-list h3 {
+		margin: 0;
+		color: var(--color-ivory-50);
+		font-family: var(--font-display);
+		font-size: 1.8rem;
+		font-weight: 600;
+	}
+	.ceremony-list p {
+		margin: 0.45rem 0 0;
+		color: var(--color-ivory-300);
+	}
+	.timeline-section {
+		background: linear-gradient(180deg, var(--color-ink-950), #17130f);
+	}
+	.timeline-shell {
+		display: grid;
+		grid-template-columns: 0.75fr 1.25fr;
+		gap: clamp(3rem, 8vw, 8rem);
+	}
+	.timeline-heading {
+		position: sticky;
+		top: 8rem;
+		align-self: start;
+	}
+	.timeline-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.timeline-list li {
+		position: relative;
+		display: grid;
+		grid-template-columns: 3.5rem 1fr auto;
+		gap: 1.5rem;
+		padding-block: 1.5rem;
+		border-top: 1px solid var(--border-soft);
+	}
+	.timeline-list li:last-child {
+		border-bottom: 1px solid var(--border-soft);
+	}
+	.timeline-number {
+		color: var(--color-vermilion-500);
+		font-family: var(--font-display);
+		font-size: 1.4rem;
+	}
+	.timeline-list time {
+		color: var(--color-gold-300);
+		font-size: 0.67rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+	.timeline-list h3 {
+		margin: 0.35rem 0 0;
+		color: var(--color-ivory-50);
+		font-family: var(--font-display);
+		font-size: 1.65rem;
+	}
+	.timeline-list p {
+		margin: 0.45rem 0 0;
+		color: var(--color-ivory-300);
+		font-size: 0.85rem;
+	}
+	.provisional-mark {
+		color: var(--color-ivory-500);
+		font-size: 0.58rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+	.club-section {
+		background: linear-gradient(180deg, #17130f, var(--color-ink-900) 58%, #211410);
+	}
+	.club-grid {
+		display: grid;
+		grid-template-columns: 0.85fr 1.15fr;
+		align-items: start;
+		gap: clamp(3rem, 8vw, 8rem);
+	}
+	.school-figure {
+		margin: 0;
+	}
+	.school-figure img {
+		width: 100%;
+		min-height: 29rem;
+		border: 1px solid var(--border-gold);
+		object-fit: cover;
+		box-shadow: var(--shadow-gold);
+	}
+	.school-figure figcaption {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: 0.8rem;
+		color: var(--color-ivory-500);
+		font-size: 0.6rem;
+	}
+	.school-figure a {
+		color: var(--color-gold-500);
+	}
+	.club-copy {
+		position: relative;
+		padding-top: 4rem;
+	}
+	.club-logo {
+		position: absolute;
+		top: -1.25rem;
+		right: 0;
+		width: 6rem;
+		height: 6rem;
+		object-fit: contain;
+		opacity: 0.88;
+	}
+	.club-intro {
+		margin-top: 2rem;
+		color: var(--color-ivory-300);
+		font-family: var(--font-display);
+		font-size: clamp(1.15rem, 2vw, 1.45rem);
+		line-height: 1.6;
+	}
+	.principles {
+		display: grid;
+		grid-template-columns: 1fr 1.35fr;
+		gap: 2rem;
+		margin-top: 2.5rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--border-gold);
+	}
+	.principles h3 {
+		margin: 0 0 0.7rem;
+		color: var(--color-gold-300);
+		font-family: var(--font-display);
+		font-size: 1.6rem;
+	}
+	.principles p {
+		margin: 0;
+		color: var(--color-ivory-300);
+		font-size: 0.8rem;
+		line-height: 1.75;
+	}
+	.registration-band {
+		position: relative;
+		overflow: hidden;
+		background: var(--color-vermilion-800);
+	}
+	.registration-band::before {
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(
+			circle at 50% 100%,
+			transparent 0 2rem,
+			rgb(246 241 232 / 0.06) 2.05rem 2.1rem,
+			transparent 2.15rem
+		);
+		background-size: 4.8rem 2.5rem;
+		content: "";
+	}
+	.registration-grid {
+		position: relative;
+		display: grid;
+		grid-template-columns: 0.25fr 1fr 0.75fr;
+		align-items: center;
+		gap: clamp(2rem, 6vw, 6rem);
+	}
+	.registration-mark {
+		height: 21rem;
+		overflow: hidden;
+		opacity: 0.8;
+	}
+	.registration-mark img {
+		height: 100%;
+		width: auto;
+		object-fit: contain;
+	}
+	.registration-band .display-title {
+		font-size: clamp(3rem, 7vw, 6.2rem);
+	}
+	.registration-band p:not(.eyebrow) {
+		max-width: 42rem;
+		color: var(--color-ivory-100);
+	}
+	.registration-status {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0.35rem 0.8rem;
+		padding-block: 1.5rem;
+		border-block: 1px solid rgb(246 241 232 / 0.28);
+	}
+	.registration-status > span {
+		grid-row: 1 / 3;
+		width: 0.55rem;
+		aspect-ratio: 1;
+		margin-top: 0.32rem;
+		border-radius: 50%;
+		background: var(--color-gold-300);
+	}
+	.registration-status strong {
+		color: var(--color-ivory-50);
+		font-size: 0.82rem;
+	}
+	.registration-status small {
+		color: var(--color-ivory-300);
+	}
+
+	@media (max-width: 56rem) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+		}
+		.hero-copy {
+			padding-top: 2rem;
+		}
+		.hero-art {
+			width: min(75%, 30rem);
+			margin-inline: auto;
+		}
+		.hero-facts {
+			grid-template-columns: 1fr;
+		}
+		.hero-facts div + div {
+			padding-inline-start: 0;
+			border-block-start: 1px solid var(--border-soft);
+			border-inline-start: 0;
+		}
+		.opening-grid {
+			grid-template-columns: 1fr;
+		}
+		.section-intro,
+		.ceremony-grid,
+		.timeline-shell,
+		.club-grid,
+		.registration-grid {
+			grid-template-columns: 1fr;
+		}
+		.competition-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+		.section-intro .section-index {
+			margin-bottom: -1rem;
+		}
+		.ceremony-heading,
+		.timeline-heading {
+			position: static;
+		}
+		.registration-mark {
+			display: none;
+		}
+		.vertical-note {
+			display: none;
+		}
+	}
+
+	@media (max-width: 34rem) {
+		.hero-grid {
+			padding-top: 2.5rem;
+		}
+		.hero h1 {
+			font-size: clamp(3.5rem, 19vw, 5.4rem);
+		}
+		.musubi-wordmark {
+			margin-top: -0.4rem;
+		}
+		.hero-art {
+			width: 88%;
+		}
+		.hero-actions {
+			align-items: stretch;
+			flex-direction: column;
+		}
+		.primary-action {
+			justify-content: center;
+		}
+		.competition-grid,
+		.principles {
+			grid-template-columns: 1fr;
+		}
+		.day-copy dl {
+			grid-template-columns: 1fr;
+		}
+		.day-copy dl div {
+			padding-inline: 0;
+		}
+		.day-copy dl div + div {
+			border-top: 1px solid var(--border-soft);
+			border-left: 0;
+		}
+		.timeline-list li {
+			grid-template-columns: 2.7rem 1fr;
+		}
+		.provisional-mark {
+			grid-column: 2;
+		}
+	}
+</style>

@@ -1,0 +1,198 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export const prerender = true;
+
+const credits = [
+	{
+		category: "Museum works",
+		items: [
+			{
+				title: "Sun and Plum Branches",
+				detail: "Shibata Zeshin · The Metropolitan Museum of Art · Public Domain",
+				href: "https://www.metmuseum.org/art/collection/search/57209",
+			},
+			{
+				title: "Landscape",
+				detail: "Attributed to Sōami · The Metropolitan Museum of Art · Public Domain",
+				href: "https://www.metmuseum.org/art/collection/search/816194",
+			},
+			{
+				title: "Rough Waves",
+				detail: "Ogata Kōrin · The Metropolitan Museum of Art · CC0",
+				href: "https://commons.wikimedia.org/wiki/File:%E6%B3%A2%E6%BF%A4%E5%9B%B3%E5%B1%8F%E9%A2%A8-Rough_Waves_MET_DT1615.jpg",
+			},
+			{
+				title: "Models of Paper Folding (Origata Tehon)",
+				detail: "Japan, 1697 · The Metropolitan Museum of Art · CC0",
+				href: "https://commons.wikimedia.org/wiki/File:%E6%8A%98%E5%BD%A2%E6%89%8B%E6%9C%AC-Models_of_Paper_Folding_%28Origata_tehon%29_MET_DP702086.jpg",
+			},
+			{
+				title: "Flowering Plum and Camellia",
+				detail: "Suzuki Kiitsu · Honolulu Museum of Art · Public Domain",
+				href: "https://commons.wikimedia.org/wiki/File:%27Flowering_Plum_and_Camellia%27%2C_six-fold_screen_by_Suzuki_Kiitsu%2C_c._1850s%2C_ink_and_color_on_paper%2C_Japanese%2C_Honolulu_Academy_of_Arts.jpg",
+			},
+		],
+	},
+	{
+		category: "Documentary photography",
+		items: [
+			{
+				title: "D. S. Senanayake College entrance",
+				detail: "Pasanbhathiya2 · CC BY 3.0 · Cropped and colour-adjusted",
+				href: "https://commons.wikimedia.org/wiki/File:Ds_entrance.jpg",
+			},
+			{
+				title: "Tokyo Station at night",
+				detail: "MaedaAkihiko · CC BY-SA 4.0 · Cropped and colour-adjusted",
+				href: "https://commons.wikimedia.org/wiki/File:Tokyo-Station-Night.jpg",
+			},
+			{
+				title: "Interior, Tokyo International Forum",
+				detail: "Stephen Kelly · CC BY 2.0 · Cropped and colour-adjusted",
+				href: "https://commons.wikimedia.org/wiki/File:Interior,_Tokyo_International_Forum_(11919754043).jpg",
+			},
+			{
+				title: "Shinjuku Lanterns",
+				detail: "Stephen Kelly · CC BY 2.0 · Cropped and colour-adjusted",
+				href: "https://commons.wikimedia.org/wiki/File:Shinjuku_Lanterns_(11918417485).jpg",
+			},
+			{
+				title: "2026 Friendship Concert",
+				detail: "U.S. Navy photo by Raquell Williams · Public Domain · Cropped",
+				href: "https://commons.wikimedia.org/wiki/File:2026_Friendship_Concert_%289573199%29.jpg",
+			},
+		],
+	},
+] as const;
+---
+
+<BaseLayout
+	title="Image Credits | MUSUBI 2026"
+	description="Sources and credits for the historical artwork and documentary photography used on the MUSUBI 2026 website."
+>
+	<section class="credits-hero">
+		<div class="site-container">
+			<p class="eyebrow">Sources / 出典</p>
+			<h1 class="display-title">Image credits</h1>
+			<p>
+				Every external image on this site is traceable to a museum record or documented photographic
+				source. The supplied MUSUBI lettering and club logos remain the primary identity.
+			</p>
+		</div>
+	</section>
+	<section class="section-shell">
+		<div class="site-container credits-list">
+			{
+				credits.map((group, groupIndex) => (
+					<section aria-labelledby={`credit-group-${groupIndex}`}>
+						<p class="eyebrow">{String(groupIndex + 1).padStart(2, "0")} / Attribution</p>
+						<h2 id={`credit-group-${groupIndex}`}>{group.category}</h2>
+						<ul>
+							{group.items.map((item) => (
+								<li>
+									<div>
+										<h3>{item.title}</h3>
+										<p>{item.detail}</p>
+									</div>
+									<a href={item.href} target="_blank" rel="noreferrer">
+										Open source <span aria-hidden="true">↗</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				))
+			}
+			<aside>
+				<h2>Editorial treatment</h2><p>
+					Historical artworks are resized without recolouring. Documentary photographs receive
+					restrained crops, desaturation, contrast, brightness, and web compression. External people
+					and events are never presented as MUSUBI participants.
+				</p>
+			</aside>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.credits-hero {
+		padding-block: clamp(6rem, 12vw, 10rem);
+		border-bottom: 1px solid var(--border-gold);
+		background:
+			linear-gradient(90deg, rgb(15 13 11 / 0.9), rgb(15 13 11 / 0.66)),
+			url("/assets/images/soami-landscape.webp") center / cover;
+	}
+	.credits-hero p:last-child {
+		max-width: 45rem;
+		margin: 2rem 0 0;
+		color: var(--color-ivory-300);
+		font-family: var(--font-display);
+		font-size: 1.35rem;
+	}
+	.credits-list {
+		display: grid;
+		gap: 5rem;
+	}
+	.credits-list h2 {
+		margin: 0;
+		color: var(--color-gold-300);
+		font-family: var(--font-display);
+		font-size: clamp(2.3rem, 5vw, 3.6rem);
+	}
+	.credits-list ul {
+		margin: 2rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.credits-list li {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+		padding-block: 1.2rem;
+		border-top: 1px solid var(--border-soft);
+	}
+	.credits-list li:last-child {
+		border-bottom: 1px solid var(--border-soft);
+	}
+	.credits-list h3 {
+		margin: 0;
+		color: var(--color-ivory-100);
+		font-family: var(--font-display);
+		font-size: 1.45rem;
+	}
+	.credits-list li p {
+		margin: 0.3rem 0 0;
+		color: var(--color-ivory-500);
+		font-size: 0.75rem;
+	}
+	.credits-list li a {
+		flex: 0 0 auto;
+		color: var(--color-gold-300);
+		font-size: 0.7rem;
+		font-weight: 700;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+	.credits-list aside {
+		padding: 2rem;
+		border-inline-start: 2px solid var(--color-vermilion-500);
+		background: var(--color-ink-900);
+	}
+	.credits-list aside h2 {
+		font-size: 2rem;
+	}
+	.credits-list aside p {
+		max-width: 50rem;
+		margin-bottom: 0;
+		color: var(--color-ivory-300);
+	}
+	@media (max-width: 38rem) {
+		.credits-list li {
+			align-items: flex-start;
+			flex-direction: column;
+			gap: 0.8rem;
+		}
+	}
+</style>

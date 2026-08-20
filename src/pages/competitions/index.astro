@@ -1,0 +1,209 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import CompetitionCard from "@/components/CompetitionCard.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import { competitions, competitionsByMode, competitionModeMeta } from "@/data/competitions";
+
+export const prerender = true;
+
+const groups = [
+	{ key: "online", number: "01", japanese: "オンライン" },
+	{ key: "on-site", number: "02", japanese: "会場" },
+	{ key: "physical-submission", number: "03", japanese: "作品提出" },
+] as const;
+---
+
+<BaseLayout
+	title="Inter-school Competitions | MUSUBI 2026"
+	description="Explore all nine proposed MUSUBI 2026 inter-school Japanese language and cultural competitions."
+>
+	<section class="page-hero">
+		<div class="site-container page-hero-grid">
+			<div>
+				<p class="eyebrow">MUSUBI 2026 · 競技</p>
+				<h1 class="display-title">Nine ways to take part.</h1>
+				<p class="intro">
+					Language, performance, knowledge, costume, paper, and visual art come together in the
+					proposed inter-school programme.
+				</p>
+			</div>
+			<div class="count" aria-label={`${competitions.length} competitions`}>
+				<strong>{String(competitions.length).padStart(2, "0")}</strong>
+				<span>Competitions<br />All dates provisional</span>
+			</div>
+		</div>
+	</section>
+
+	{
+		groups.map((group) => (
+			<section class="section-shell competition-group" aria-labelledby={`group-${group.key}`}>
+				<div class="site-container">
+					<div class="group-heading">
+						<p>{group.number}</p>
+						<SectionHeading
+							id={`group-${group.key}`}
+							eyebrow={`${group.japanese} / ${competitionModeMeta[group.key].label}`}
+							title={competitionModeMeta[group.key].label}
+							description={competitionModeMeta[group.key].description}
+						/>
+					</div>
+					<div class="competition-grid">
+						{competitionsByMode[group.key].map((competition) => (
+							<CompetitionCard {competition} />
+						))}
+					</div>
+				</div>
+			</section>
+		))
+	}
+
+	<section class="section-shell-compact registration-note">
+		<div class="site-container note-grid">
+			<p class="eyebrow">Registration / 申込</p>
+			<h2>Google Form links will appear here once approved.</h2>
+			<p>
+				Registration links, full rules, eligibility, judging criteria, and confirmed schedules are
+				not yet public. Every competition page clearly marks the current status.
+			</p>
+			<a href="/#registration">View the registration timeline →</a>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.page-hero {
+		position: relative;
+		padding-block: clamp(6rem, 12vw, 11rem);
+		overflow: hidden;
+		border-bottom: 1px solid var(--border-gold);
+		background:
+			linear-gradient(90deg, rgb(15 13 11 / 0.92), rgb(15 13 11 / 0.64)),
+			url("/assets/images/rough-waves.webp") center 42% / cover;
+	}
+	.page-hero::after {
+		position: absolute;
+		inset: auto -5% -35% auto;
+		width: 42rem;
+		aspect-ratio: 1;
+		border: 1px solid rgb(225 194 147 / 0.18);
+		border-radius: 50%;
+		content: "";
+	}
+	.page-hero-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.6fr) minmax(12rem, 0.5fr);
+		align-items: end;
+		gap: 3rem;
+	}
+	.intro {
+		max-width: 44rem;
+		margin: 2rem 0 0;
+		color: var(--color-ivory-300);
+		font-family: var(--font-display);
+		font-size: clamp(1.25rem, 2.4vw, 1.8rem);
+		line-height: 1.45;
+	}
+	.count {
+		display: flex;
+		align-items: flex-end;
+		gap: 1rem;
+		padding-bottom: 0.5rem;
+	}
+	.count strong {
+		color: var(--color-gold-300);
+		font-family: var(--font-display);
+		font-size: clamp(4rem, 10vw, 7rem);
+		font-weight: 500;
+		line-height: 0.7;
+	}
+	.count span {
+		color: var(--color-ivory-300);
+		font-size: 0.66rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		line-height: 1.5;
+		text-transform: uppercase;
+	}
+	.competition-group + .competition-group {
+		border-top: 1px solid var(--border-soft);
+	}
+	.group-heading {
+		display: grid;
+		grid-template-columns: 5rem minmax(0, 1fr);
+		gap: 1.5rem;
+		margin-bottom: 3rem;
+	}
+	.group-heading > p {
+		margin: 0.4rem 0 0;
+		color: var(--color-vermilion-500);
+		font-family: var(--font-display);
+		font-size: 2rem;
+	}
+	.competition-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1.25rem;
+	}
+	.registration-note {
+		background: var(--color-ivory-50);
+		color: var(--color-ink-900);
+	}
+	.note-grid {
+		display: grid;
+		grid-template-columns: 0.65fr 1.2fr 1fr;
+		gap: clamp(1.5rem, 5vw, 5rem);
+	}
+	.note-grid h2 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: clamp(2rem, 4vw, 3.2rem);
+		line-height: 1.05;
+	}
+	.note-grid > p:not(.eyebrow) {
+		margin: 0;
+		color: #554d43;
+	}
+	.note-grid a {
+		grid-column: 2;
+		width: fit-content;
+		color: var(--color-vermilion-650);
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+	@media (max-width: 58rem) {
+		.competition-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+		.note-grid {
+			grid-template-columns: 1fr 1fr;
+		}
+		.note-grid .eyebrow {
+			grid-column: 1 / -1;
+		}
+		.note-grid a {
+			grid-column: 1;
+		}
+	}
+	@media (max-width: 40rem) {
+		.page-hero-grid,
+		.competition-grid,
+		.note-grid {
+			grid-template-columns: 1fr;
+		}
+		.count {
+			margin-top: 1rem;
+		}
+		.group-heading {
+			grid-template-columns: 1fr;
+		}
+		.group-heading > p {
+			margin-bottom: -1rem;
+		}
+		.note-grid .eyebrow,
+		.note-grid a {
+			grid-column: auto;
+		}
+	}
+</style>

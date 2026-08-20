@@ -1,0 +1,97 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+interface Props {
+	post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFormatter = new Intl.DateTimeFormat("en-GB", {
+	day: "numeric",
+	month: "long",
+	year: "numeric",
+});
+---
+
+<BaseLayout title={`${post.data.title} | Japanese Club`} description={post.data.description}>
+	<article class="section-shell">
+		<div class="site-container">
+			<a
+				href="/blog/"
+				class="inline-flex min-h-11 items-center text-sm font-semibold text-gold-300 no-underline hover:text-gold-400"
+			>
+				<span aria-hidden="true">←</span>
+				<span class="ml-2">All stories</span>
+			</a>
+
+			<header class="mt-10 max-w-4xl">
+				<p class="eyebrow">Club journal · 部誌</p>
+				<h1 class="section-title">{post.data.title}</h1>
+				<p class="mt-6 max-w-3xl text-pretty text-lg text-ivory-300">
+					{post.data.description}
+				</p>
+				<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-ivory-500">
+					<span>{post.data.author}</span>
+					<span aria-hidden="true">·</span>
+					<time datetime={post.data.publishDate.toISOString()}>
+						{dateFormatter.format(post.data.publishDate)}
+					</time>
+					{
+						post.data.updatedDate && (
+							<>
+								<span aria-hidden="true">·</span>
+								<span>
+									Updated{" "}
+									<time datetime={post.data.updatedDate.toISOString()}>
+										{dateFormatter.format(post.data.updatedDate)}
+									</time>
+								</span>
+							</>
+						)
+					}
+				</div>
+				{
+					post.data.tags.length > 0 && (
+						<ul class="mt-5 flex list-none flex-wrap gap-2 p-0" aria-label="Article tags">
+							{post.data.tags.map((tag) => (
+								<li class="border border-gold-800 bg-ink-900 px-3 py-1 text-xs font-semibold text-gold-400">
+									{tag}
+								</li>
+							))}
+						</ul>
+					)
+				}
+			</header>
+
+			{
+				post.data.cover && (
+					<Image
+						src={post.data.cover.image}
+						alt={post.data.cover.alt}
+						width={1200}
+						class="mt-10 aspect-[16/8] w-full rounded-[var(--radius-panel)] border border-gold-800 object-cover shadow-gold"
+					/>
+				)
+			}
+
+			<div class="prose-musubi mt-12">
+				<Content />
+			</div>
+		</div>
+	</article>
+</BaseLayout>

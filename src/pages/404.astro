@@ -1,0 +1,81 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout
+	title="Page Not Found | MUSUBI 2026"
+	description="The requested MUSUBI page could not be found."
+	noindex
+>
+	<section class="not-found">
+		<div class="site-container not-found-grid">
+			<div>
+				<p class="eyebrow">404 · 道に迷いました</p>
+				<h1 class="display-title">We could not find that page.</h1>
+				<p>
+					The page may have moved, or the address may be incomplete. Return to MUSUBI 2026 or
+					explore the competition programme.
+				</p>
+				<div><a href="/">Return home</a><a href="/competitions/">View competitions →</a></div>
+			</div>
+			<img
+				src="/assets/brand/musubi-vertical.png"
+				width="477"
+				height="1500"
+				alt=""
+				aria-hidden="true"
+			/>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.not-found {
+		min-height: calc(100svh - 5rem);
+		padding-block: 5rem;
+		background:
+			radial-gradient(circle at 70% 45%, rgb(191 33 33 / 0.14), transparent 24rem),
+			var(--color-ink-950);
+	}
+	.not-found-grid {
+		display: grid;
+		min-height: 65svh;
+		grid-template-columns: 1fr 0.35fr;
+		align-items: center;
+		gap: 4rem;
+	}
+	.not-found p:not(.eyebrow) {
+		max-width: 42rem;
+		color: var(--color-ivory-300);
+		font-family: var(--font-display);
+		font-size: 1.35rem;
+	}
+	.not-found div > div {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem 2rem;
+		margin-top: 2rem;
+	}
+	.not-found a {
+		color: var(--color-gold-300);
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+	.not-found img {
+		max-height: 60svh;
+		width: auto;
+		justify-self: center;
+	}
+	@media (max-width: 42rem) {
+		.not-found-grid {
+			grid-template-columns: 1fr;
+		}
+		.not-found img {
+			display: none;
+		}
+	}
+</style>

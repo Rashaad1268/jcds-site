@@ -1,0 +1,377 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import CompetitionCard from "@/components/CompetitionCard.astro";
+import { competitions, isGoogleFormUrl, type Competition } from "@/data/competitions";
+import { competitionMedia } from "@/data/media";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+	return competitions.map((competition) => ({
+		params: { slug: competition.slug },
+		props: { competition },
+	}));
+}
+
+interface Props {
+	competition: Competition;
+}
+const { competition }: Props = Astro.props;
+const media = competitionMedia[competition.slug];
+const registrationOpen = isGoogleFormUrl(competition.registrationUrl);
+const related = competitions
+	.filter((item) => item.slug !== competition.slug && item.mode === competition.mode)
+	.slice(0, 2);
+const modeJapanese =
+	competition.mode === "online"
+		? "オンライン"
+		: competition.mode === "on-site"
+			? "会場"
+			: "作品提出";
+---
+
+<BaseLayout
+	title={`${competition.title} | MUSUBI 2026`}
+	description={`${competition.summary} View the proposed date, mode, current registration status, and official-detail notice.`}
+	socialImage={media.src}
+>
+	<section class="detail-hero">
+		<div class="site-container detail-grid">
+			<div class="detail-copy">
+				<nav aria-label="Breadcrumb">
+					<a href="/">MUSUBI</a><span aria-hidden="true">/</span><a href="/competitions/"
+						>Competitions</a
+					>
+				</nav>
+				<p class="eyebrow">{modeJapanese} · {competition.modeLabel}</p>
+				<h1 class="display-title">{competition.title}</h1>
+				<p class="summary">{competition.summary}</p>
+				<div class="status-row">
+					<span>Provisional</span>
+					<span>{competition.detailsStatusLabel}</span>
+				</div>
+			</div>
+			<figure class:list={["detail-media", { portrait: media.height > media.width }]}>
+				<img
+					src={media.src}
+					width={media.width}
+					height={media.height}
+					alt={media.alt}
+					style={`object-position:${media.objectPosition ?? "center"}`}
+				/>
+				<figcaption>
+					<span>{media.caption}</span><a href={media.sourceUrl} target="_blank" rel="noreferrer"
+						>{media.credit}</a
+					>
+				</figcaption>
+			</figure>
+		</div>
+	</section>
+
+	<section class="section-shell">
+		<div class="site-container information-grid">
+			<div>
+				<p class="eyebrow">At a glance / 概要</p>
+				<h2 class="section-title">Proposed competition information</h2>
+			</div>
+			<dl class="facts">
+				<div><dt>Participation mode</dt><dd>{competition.modeLabel}</dd></div>
+				<div>
+					<dt>Proposed date</dt><dd>
+						<time datetime={competition.dates.startDate}>{competition.dates.displayDate}</time
+						><small>Provisional · subject to confirmation</small>
+					</dd>
+				</div>
+				<div>
+					<dt>{competition.location ? "Location" : "Submission"}</dt><dd>
+						{competition.location ?? competition.submissionNote}
+					</dd>
+				</div>
+			</dl>
+		</div>
+	</section>
+
+	<section class="section-shell-compact details-panel">
+		<div class="site-container rules-grid">
+			<div>
+				<p class="eyebrow">Official notice / お知らせ</p>
+				<h2>Rules and format are still being prepared.</h2>
+			</div>
+			<div class="notice-copy">
+				<p>{competition.detailsNote}</p>
+				<p>{competition.submissionNote}</p>
+				<p class="guardrail">
+					The club has not yet published divisions, time limits, team sizes, eligibility, judging
+					criteria, or technical formats. We will add them only after they are confirmed.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section id="registration" class="section-shell registration-section">
+		<div class="site-container registration-grid">
+			<div>
+				<p class="eyebrow">Registration / 申込</p>
+				<h2 class="section-title">Register your school</h2>
+				<p>
+					Registration is planned for 14 to 27 September 2026. The official Google Form will be
+					published here once approved.
+				</p>
+			</div>
+			<div class="registration-state" aria-live="polite">
+				{
+					registrationOpen ? (
+						<a href={competition.registrationUrl} target="_blank" rel="noreferrer">
+							Open Google Form <span aria-hidden="true">↗</span>
+						</a>
+					) : (
+						<>
+							<>
+								<span class="state-dot" aria-hidden="true" />
+								<strong>{competition.registrationLabel}</strong>
+								<small>No placeholder or unofficial form is linked.</small>
+							</>
+						</>
+					)
+				}
+			</div>
+		</div>
+	</section>
+
+	{
+		related.length > 0 && (
+			<section class="section-shell-compact related-section">
+				<div class="site-container">
+					<p class="eyebrow">Continue exploring</p>
+					<h2 class="section-title">More {competition.modeLabel.toLowerCase()} competitions</h2>
+					<div class="related-grid">
+						{related.map((item) => (
+							<CompetitionCard competition={item} />
+						))}
+					</div>
+				</div>
+			</section>
+		)
+	}
+</BaseLayout>
+
+<style>
+	.detail-hero {
+		padding-block: clamp(5rem, 10vw, 9rem);
+		border-bottom: 1px solid var(--border-gold);
+		background:
+			radial-gradient(circle at 80% 20%, rgb(191 33 33 / 0.13), transparent 30rem),
+			var(--color-ink-950);
+	}
+	.detail-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.75fr);
+		align-items: center;
+		gap: clamp(3rem, 7vw, 7rem);
+	}
+	.detail-copy nav {
+		display: flex;
+		gap: 0.6rem;
+		margin-bottom: clamp(3rem, 7vw, 6rem);
+		color: var(--color-ivory-500);
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+	.detail-copy nav a {
+		text-decoration: none;
+	}
+	.summary {
+		max-width: 41rem;
+		margin: 2rem 0 0;
+		color: var(--color-ivory-300);
+		font-family: var(--font-display);
+		font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+		line-height: 1.5;
+	}
+	.status-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.8rem 1.5rem;
+		margin-top: 2rem;
+		color: var(--color-gold-300);
+		font-size: 0.66rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+	.status-row span + span {
+		color: var(--color-ivory-500);
+	}
+	.detail-media {
+		margin: 0;
+	}
+	.detail-media img {
+		width: 100%;
+		max-height: 38rem;
+		border: 1px solid var(--border-gold);
+		object-fit: cover;
+		box-shadow: 1.6rem 2rem 4rem rgb(0 0 0 / 0.45);
+	}
+	.detail-media.portrait img {
+		object-fit: contain;
+		background: var(--color-ink-900);
+	}
+	.detail-media figcaption {
+		display: grid;
+		gap: 0.3rem;
+		margin-top: 0.9rem;
+		color: var(--color-ivory-500);
+		font-size: 0.62rem;
+		line-height: 1.5;
+	}
+	.detail-media figcaption a {
+		color: var(--color-gold-500);
+	}
+	.information-grid {
+		display: grid;
+		grid-template-columns: 0.85fr 1.15fr;
+		gap: clamp(3rem, 8vw, 8rem);
+	}
+	.facts {
+		margin: 0;
+	}
+	.facts div {
+		display: grid;
+		grid-template-columns: 11rem 1fr;
+		gap: 1.25rem;
+		padding-block: 1.25rem;
+		border-top: 1px solid var(--border-soft);
+	}
+	.facts div:last-child {
+		border-bottom: 1px solid var(--border-soft);
+	}
+	.facts dt {
+		color: var(--color-ivory-500);
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+	.facts dd {
+		margin: 0;
+		color: var(--color-ivory-100);
+	}
+	.facts small {
+		display: block;
+		margin-top: 0.35rem;
+		color: var(--color-gold-500);
+	}
+	.details-panel {
+		border-block: 1px solid var(--border-soft);
+		background:
+			radial-gradient(circle at 5% 18%, rgb(150 25 25 / 0.22), transparent 30rem),
+			linear-gradient(145deg, #251613, var(--color-ink-900) 62%, #17120f);
+		color: var(--color-ivory-50);
+	}
+	.details-panel .eyebrow {
+		color: #e86a61;
+	}
+	.rules-grid {
+		display: grid;
+		grid-template-columns: 0.9fr 1.1fr;
+		gap: clamp(3rem, 8vw, 8rem);
+	}
+	.rules-grid h2 {
+		margin: 0;
+		color: var(--color-gold-300);
+		font-family: var(--font-display);
+		font-size: clamp(2.4rem, 5vw, 4rem);
+		line-height: 1;
+	}
+	.notice-copy {
+		color: var(--color-ivory-300);
+		font-size: 1rem;
+		line-height: 1.75;
+	}
+	.notice-copy p {
+		margin: 0 0 1.25rem;
+	}
+	.guardrail {
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--border-soft);
+		color: var(--color-ivory-500);
+		font-size: 0.78rem;
+	}
+	.registration-section {
+		background: linear-gradient(180deg, #17120f, var(--color-ink-950) 72%, #15100e);
+	}
+	.registration-grid {
+		display: grid;
+		grid-template-columns: 1fr 0.8fr;
+		align-items: center;
+		gap: clamp(3rem, 8vw, 8rem);
+	}
+	.registration-grid > div:first-child > p:last-child {
+		max-width: 40rem;
+		color: var(--color-ivory-300);
+	}
+	.registration-state {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+		gap: 0.35rem 0.8rem;
+		padding: 1.5rem;
+		border-block: 1px solid var(--border-gold);
+	}
+	.registration-state .state-dot {
+		grid-row: 1 / 3;
+		width: 0.55rem;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		background: var(--color-vermilion-500);
+	}
+	.registration-state strong {
+		color: var(--color-ivory-100);
+		font-size: 0.82rem;
+	}
+	.registration-state small {
+		color: var(--color-ivory-500);
+	}
+	.registration-state a {
+		display: inline-flex;
+		min-height: 3.25rem;
+		align-items: center;
+		justify-content: space-between;
+		padding-inline: 1rem;
+		background: var(--color-vermilion-650);
+		color: var(--color-ivory-50);
+		font-weight: 700;
+		text-decoration: none;
+	}
+	.related-section {
+		border-top: 1px solid var(--border-soft);
+	}
+	.related-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.25rem;
+		margin-top: 2.5rem;
+	}
+	@media (max-width: 52rem) {
+		.detail-grid,
+		.information-grid,
+		.rules-grid,
+		.registration-grid {
+			grid-template-columns: 1fr;
+		}
+		.detail-media {
+			width: min(100%, 34rem);
+		}
+	}
+	@media (max-width: 38rem) {
+		.facts div,
+		.related-grid {
+			grid-template-columns: 1fr;
+		}
+		.facts div {
+			gap: 0.4rem;
+		}
+	}
+</style>

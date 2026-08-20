@@ -1,0 +1,111 @@
+---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import "../styles/global.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+	canonical?: string | URL;
+	socialImage?: string;
+	pageType?: "website" | "article";
+	noindex?: boolean;
+}
+
+const {
+	title = "MUSUBI 2026 | Japanese Club of D. S. Senanayake College",
+	description = "MUSUBI 2026 connects Sri Lankan schools through Japanese language, culture, creativity, and an inter-school Japanese Day.",
+	canonical,
+	socialImage,
+	pageType = "website",
+	noindex = false,
+} = Astro.props;
+
+const baseUrl = Astro.site ?? new URL(Astro.url.origin);
+const canonicalUrl = canonical ? new URL(canonical, baseUrl) : new URL(Astro.url.pathname, baseUrl);
+canonicalUrl.search = "";
+canonicalUrl.hash = "";
+
+const socialImageUrl = socialImage ? new URL(socialImage, baseUrl) : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#0f0d0b" />
+		<meta name="color-scheme" content="dark" />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+
+		<meta property="og:site_name" content="Japanese Club of D. S. Senanayake College" />
+		<meta property="og:type" content={pageType} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		{socialImageUrl && <meta property="og:image" content={socialImageUrl} />}
+		{
+			socialImageUrl && (
+				<meta
+					property="og:image:alt"
+					content="MUSUBI 2026 by the Japanese Club of D. S. Senanayake College"
+				/>
+			)
+		}
+
+		<meta name="twitter:card" content={socialImageUrl ? "summary_large_image" : "summary"} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		{socialImageUrl && <meta name="twitter:image" content={socialImageUrl} />}
+		<slot name="head" />
+	</head>
+	<body id="top">
+		<a class="skip-link" href="#main-content">Skip to main content</a>
+		<div class="site-shell">
+			<SiteHeader />
+			<main id="main-content" tabindex="-1">
+				<slot />
+			</main>
+			<SiteFooter />
+		</div>
+	</body>
+</html>
+
+<style>
+	.site-shell {
+		display: flex;
+		min-height: 100svh;
+		flex-direction: column;
+	}
+
+	main {
+		flex: 1;
+	}
+
+	.skip-link {
+		position: fixed;
+		z-index: 100;
+		top: 0.75rem;
+		left: 0.75rem;
+		padding: 0.7rem 1rem;
+		border: 1px solid var(--color-gold-300);
+		border-radius: 0.5rem;
+		background: var(--color-ink-950);
+		color: var(--color-ivory-50);
+		font-size: 0.875rem;
+		font-weight: 700;
+		transform: translateY(-180%);
+		transition: transform 180ms var(--ease-ceremonial);
+	}
+
+	.skip-link:focus {
+		transform: translateY(0);
+	}
+</style>

@@ -1,0 +1,387 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;600&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+	--font-display: "Cormorant Garamond", "Noto Serif JP", Georgia, serif;
+	--font-body:
+		Montserrat, "Noto Sans JP", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-japanese: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif;
+
+	--color-ink-950: #0f0d0b;
+	--color-ink-900: #15120f;
+	--color-ink-850: #1c1813;
+	--color-ink-800: #242019;
+
+	--color-ivory-50: #f6f1e8;
+	--color-ivory-100: #eee7dc;
+	--color-ivory-300: #cfc6b9;
+	--color-ivory-500: #968d82;
+
+	--color-gold-300: #f3d898;
+	--color-gold-400: #e1c293;
+	--color-gold-500: #d0aa73;
+	--color-gold-650: #9b7545;
+	--color-gold-800: #483925;
+
+	--color-vermilion-500: #bf2121;
+	--color-vermilion-650: #961919;
+	--color-vermilion-800: #681313;
+
+	--radius-card: 0.875rem;
+	--radius-panel: 1.25rem;
+	--shadow-gold: 0 1.25rem 3.75rem rgb(0 0 0 / 0.34);
+	--ease-ceremonial: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+	color-scheme: dark;
+	--background: #0f0d0b;
+	--foreground: #f6f1e8;
+	--card: #15120f;
+	--card-foreground: #f6f1e8;
+	--popover: #1c1813;
+	--popover-foreground: #f6f1e8;
+	--primary: #e1c293;
+	--primary-foreground: #0f0d0b;
+	--secondary: #242019;
+	--secondary-foreground: #f6f1e8;
+	--muted: #242019;
+	--muted-foreground: #cfc6b9;
+	--accent: #961919;
+	--accent-foreground: #f6f1e8;
+	--destructive: #bf2121;
+	--border: rgb(225 194 147 / 0.32);
+	--input: rgb(246 241 232 / 0.14);
+	--ring: #f3d898;
+	--radius: 0.875rem;
+	--border-gold: rgb(225 194 147 / 0.46);
+	--border-soft: rgb(246 241 232 / 0.12);
+	--surface-card: rgb(21 18 15 / 0.9);
+	--surface-raised: rgb(28 24 19 / 0.96);
+	--focus-ring: #f3d898;
+	--page-gutter: clamp(1.25rem, 4vw, 3rem);
+	--section-space: clamp(4.5rem, 9vw, 8rem);
+	--chart-1: oklch(0.87 0 0);
+	--chart-2: oklch(0.556 0 0);
+	--chart-3: oklch(0.439 0 0);
+	--chart-4: oklch(0.371 0 0);
+	--chart-5: oklch(0.269 0 0);
+	--sidebar: #15120f;
+	--sidebar-foreground: #f6f1e8;
+	--sidebar-primary: #e1c293;
+	--sidebar-primary-foreground: #0f0d0b;
+	--sidebar-accent: #242019;
+	--sidebar-accent-foreground: #f6f1e8;
+	--sidebar-border: rgb(225 194 147 / 0.32);
+	--sidebar-ring: #f3d898;
+}
+
+html {
+	min-width: 20rem;
+	background: var(--color-ink-950);
+	scroll-behavior: smooth;
+	scrollbar-gutter: stable;
+}
+
+body {
+	position: relative;
+	min-height: 100svh;
+	margin: 0;
+	overflow-x: clip;
+	background:
+		radial-gradient(circle at 82% -10%, rgb(191 33 33 / 0.08), transparent 31rem),
+		radial-gradient(circle at -5% 42%, rgb(208 170 115 / 0.055), transparent 28rem),
+		var(--color-ink-950);
+	color: var(--color-ivory-50);
+	font-family: var(--font-body);
+	font-size: 1rem;
+	line-height: 1.65;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Pure CSS seigaiha-inspired geometry. It remains atmospheric and non-semantic. */
+body::before {
+	position: fixed;
+	z-index: -1;
+	inset: 0;
+	pointer-events: none;
+	content: "";
+	background-image:
+		radial-gradient(
+			circle at 50% 100%,
+			transparent 0 1.95rem,
+			rgb(246 241 232 / 0.045) 1.98rem 2.03rem,
+			transparent 2.06rem
+		),
+		radial-gradient(
+			circle at 0 100%,
+			transparent 0 1.95rem,
+			rgb(246 241 232 / 0.04) 1.98rem 2.03rem,
+			transparent 2.06rem
+		),
+		radial-gradient(
+			circle at 100% 100%,
+			transparent 0 1.95rem,
+			rgb(246 241 232 / 0.04) 1.98rem 2.03rem,
+			transparent 2.06rem
+		);
+	background-position:
+		0 0,
+		0 2.25rem,
+		0 2.25rem;
+	background-size: 4.5rem 4.5rem;
+	mask-image: linear-gradient(to bottom, black, rgb(0 0 0 / 0.62) 72%, transparent);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+::selection {
+	background: var(--color-vermilion-650);
+	color: var(--color-ivory-50);
+}
+
+img,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+	font: inherit;
+}
+
+a {
+	color: inherit;
+	text-decoration-thickness: 0.08em;
+	text-underline-offset: 0.22em;
+}
+
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+	outline: 0.125rem solid var(--focus-ring);
+	outline-offset: 0.1875rem;
+}
+
+.site-container {
+	width: min(calc(100% - (var(--page-gutter) * 2)), 75rem);
+	margin-inline: auto;
+}
+
+.site-container-wide {
+	width: min(calc(100% - (var(--page-gutter) * 2)), 82.5rem);
+	margin-inline: auto;
+}
+
+.section-shell {
+	position: relative;
+	padding-block: var(--section-space);
+}
+
+.section-shell-compact {
+	position: relative;
+	padding-block: clamp(3rem, 6vw, 5rem);
+}
+
+.eyebrow {
+	margin: 0 0 1rem;
+	color: var(--color-gold-300);
+	font-size: 0.75rem;
+	font-weight: 700;
+	line-height: 1.4;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+
+.gold-rule {
+	width: min(100%, 16rem);
+	height: 1px;
+	border: 0;
+	margin-block: 1.5rem;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		var(--color-gold-400) 18%,
+		var(--color-gold-400) 82%,
+		transparent
+	);
+	opacity: 0.72;
+}
+
+.display-title {
+	margin: 0;
+	color: var(--color-gold-300);
+	font-family: var(--font-display);
+	font-size: clamp(3.375rem, 8vw, 7rem);
+	font-weight: 600;
+	line-height: 0.9;
+	letter-spacing: -0.025em;
+	text-wrap: balance;
+}
+
+.section-title {
+	margin: 0;
+	color: var(--color-gold-300);
+	font-family: var(--font-display);
+	font-size: clamp(2.125rem, 5vw, 3.625rem);
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: -0.018em;
+	text-wrap: balance;
+}
+
+.framed-panel {
+	border: 1px solid var(--border-gold);
+	border-radius: var(--radius-panel);
+	background: var(--surface-card);
+	box-shadow: var(--shadow-gold);
+}
+
+.prose-musubi {
+	max-width: 45rem;
+	color: var(--color-ivory-300);
+	font-size: clamp(0.9375rem, 1.3vw, 1.0625rem);
+	line-height: 1.75;
+}
+
+.prose-musubi :where(h1, h2, h3, h4) {
+	color: var(--color-gold-300);
+	font-family: var(--font-display);
+	font-weight: 600;
+	line-height: 1.08;
+	text-wrap: balance;
+}
+
+.prose-musubi :where(h2) {
+	margin-block: 2.75rem 1rem;
+	font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+.prose-musubi :where(h3) {
+	margin-block: 2rem 0.75rem;
+	font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.prose-musubi :where(p, ul, ol, blockquote) {
+	margin-block: 0 1.25rem;
+}
+
+.prose-musubi :where(strong) {
+	color: var(--color-ivory-50);
+	font-weight: 650;
+}
+
+.prose-musubi :where(a) {
+	color: var(--color-gold-300);
+}
+
+.prose-musubi :where(blockquote) {
+	border-inline-start: 1px solid var(--color-gold-400);
+	padding-inline-start: 1.25rem;
+	color: var(--color-ivory-100);
+	font-family: var(--font-display);
+	font-size: 1.35em;
+	font-style: italic;
+}
+
+.focus-gold:focus-visible {
+	outline: 0.125rem solid var(--focus-ring);
+	outline-offset: 0.1875rem;
+}
+
+.text-balance {
+	text-wrap: balance;
+}
+
+.text-pretty {
+	text-wrap: pretty;
+}
+
+@media (max-width: 39.999rem) {
+	:root {
+		--page-gutter: 1.25rem;
+	}
+
+	body::before {
+		background-size: 3.75rem 3.75rem;
+		opacity: 0.8;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+@theme inline {
+	--font-heading: var(--font-display);
+	--font-sans: var(--font-body);
+	--color-sidebar-ring: var(--sidebar-ring);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar: var(--sidebar);
+	--color-chart-5: var(--chart-5);
+	--color-chart-4: var(--chart-4);
+	--color-chart-3: var(--chart-3);
+	--color-chart-2: var(--chart-2);
+	--color-chart-1: var(--chart-1);
+	--color-ring: var(--ring);
+	--color-input: var(--input);
+	--color-border: var(--border);
+	--color-destructive: var(--destructive);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-accent: var(--accent);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-muted: var(--muted);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-secondary: var(--secondary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-primary: var(--primary);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-popover: var(--popover);
+	--color-card-foreground: var(--card-foreground);
+	--color-card: var(--card);
+	--color-foreground: var(--foreground);
+	--color-background: var(--background);
+	--radius-sm: calc(var(--radius) * 0.6);
+	--radius-md: calc(var(--radius) * 0.8);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) * 1.4);
+	--radius-2xl: calc(var(--radius) * 1.8);
+	--radius-3xl: calc(var(--radius) * 2.2);
+	--radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+	html {
+		@apply font-sans;
+	}
+}
