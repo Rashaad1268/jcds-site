@@ -156,7 +156,7 @@ function canonicalMatchesRoute(canonical, route) {
 	}
 }
 
-function assertPage(route, html, { requireProvisional = false, requireCanonical = true } = {}) {
+function assertPage(route, html, { requireCanonical = true } = {}) {
 	if (!html) return null;
 
 	const h1Count = (html.match(/<h1\b/gi) ?? []).length;
@@ -185,13 +185,11 @@ function assertPage(route, html, { requireProvisional = false, requireCanonical 
 		);
 	}
 
-	if (requireProvisional) {
-		check(
-			/\bprovisional\b/i.test(stripHtml(html)),
-			route,
-			"Missing a visible provisional-status label.",
-		);
-	}
+	check(
+		!/(?:\bprovisional\b|\bprovincial\b)/i.test(stripHtml(html)),
+		route,
+		"Found a removed provisional-status label.",
+	);
 
 	return metadata;
 }
@@ -306,14 +304,14 @@ check(
 
 const representativeMetadata = [];
 const home = requireRouteHtml("/");
-const homeMetadata = assertPage("/", home.html, { requireProvisional: true });
+const homeMetadata = assertPage("/", home.html);
 if (homeMetadata) representativeMetadata.push({ route: "/", ...homeMetadata });
 assertNoDummyRegistrationLinks("/", home.html);
 
 for (const slug of expectedSlugs) {
 	const route = `/competitions/${slug}`;
 	const page = requireRouteHtml(route);
-	const metadata = assertPage(route, page.html, { requireProvisional: true });
+	const metadata = assertPage(route, page.html);
 	if (metadata) representativeMetadata.push({ route, ...metadata });
 	assertNoDummyRegistrationLinks(route, page.html);
 

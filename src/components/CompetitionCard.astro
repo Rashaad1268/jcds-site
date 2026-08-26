@@ -17,7 +17,6 @@ const registrationStatus = competition.registrationUrl
 	<a class="card-link focus-gold" href={href} aria-label={`View ${competition.title}`}>
 		<div class="card-topline">
 			<span class:list={["mode-badge", modeClass]}>{competition.modeLabel}</span>
-			<span class="provisional-badge">Provisional</span>
 		</div>
 
 		<div class="card-copy">
@@ -78,8 +77,7 @@ const registrationStatus = competition.registrationUrl
 		gap: 0.75rem;
 	}
 
-	.mode-badge,
-	.provisional-badge {
+	.mode-badge {
 		display: inline-flex;
 		min-height: 1.75rem;
 		align-items: center;
@@ -106,12 +104,6 @@ const registrationStatus = competition.registrationUrl
 	.mode-physical-submission {
 		border-color: rgb(191 33 33 / 0.75);
 		color: #e88383;
-	}
-
-	.provisional-badge {
-		border-color: transparent;
-		padding-inline: 0;
-		color: var(--color-ivory-500);
 	}
 
 	.card-copy {

@@ -16,7 +16,7 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 		server: {
-			allowedHosts: ["civil-louis-foster-operating.trycloudflare.com"],
+			allowedHosts: ["divorce-peterson-patricia-constitutional.trycloudflare.com"],
 		},
 	},
 });

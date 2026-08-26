@@ -4,9 +4,8 @@ const pathname = Astro.url.pathname;
 const navItems = [
 	{ href: "/#musubi", label: "MUSUBI" },
 	{ href: "/#competitions", label: "Competitions" },
-	{ href: "/#timeline", label: "Timeline" },
 	{ href: "/#club", label: "Club" },
-	{ href: "/blog", label: "Blog" },
+	// { href: "/blog", label: "Blog" },
 ] as const;
 
 const isActive = (href: string) => {
@@ -53,7 +52,6 @@ const isActive = (href: string) => {
 					))
 				}
 			</ul>
-			<a class="registration-link focus-gold" href="/#registration">Registration</a>
 		</nav>
 
 		<details class="mobile-menu">
@@ -77,7 +75,6 @@ const isActive = (href: string) => {
 						))
 					}
 				</ul>
-				<a class="mobile-registration focus-gold" href="/#registration">Registration</a>
 			</nav>
 		</details>
 	</div>

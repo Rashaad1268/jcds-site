@@ -212,8 +212,6 @@ def main() -> None:
     save_webp(contain(open_verified("soami.jpg"), (2000, 1500)), IMAGES / "soami-landscape.webp", 86)
     save_webp(contain(open_verified("rough-waves.jpg"), (1800, 1800)), IMAGES / "rough-waves.webp", 88)
     save_webp(contain(open_verified("origata.jpg"), (1200, 1600)), IMAGES / "origata-tehon.webp", 88)
-    save_webp(contain(open_verified("kiitsu.jpg"), (1900, 1000)), IMAGES / "kiitsu-plum-camellia.webp", 88)
-
     # Documentary photography: subtle crops and tone only; captions retain context.
     editorial_photo("school-entrance.jpg", "dssc-entrance.webp", (1600, 900), (0.5, 0.52), saturation=0.66, brightness=0.86)
     editorial_photo("tokyo-station.jpg", "tokyo-station-night.webp", (1800, 1125), (0.46, 0.68), saturation=0.78, brightness=0.86)

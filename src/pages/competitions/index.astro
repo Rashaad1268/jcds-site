@@ -15,7 +15,7 @@ const groups = [
 
 <BaseLayout
 	title="Inter-school Competitions | MUSUBI 2026"
-	description="Explore all nine proposed MUSUBI 2026 inter-school Japanese language and cultural competitions."
+	description="Explore all nine MUSUBI 2026 inter-school Japanese language and cultural competitions."
 >
 	<section class="page-hero">
 		<div class="site-container page-hero-grid">
@@ -24,12 +24,12 @@ const groups = [
 				<h1 class="display-title">Nine ways to take part.</h1>
 				<p class="intro">
 					Language, performance, knowledge, costume, paper, and visual art come together in the
-					proposed inter-school programme.
+					inter-school programme.
 				</p>
 			</div>
 			<div class="count" aria-label={`${competitions.length} competitions`}>
 				<strong>{String(competitions.length).padStart(2, "0")}</strong>
-				<span>Competitions<br />All dates provisional</span>
+				<span>Competitions<br />Across three entry modes</span>
 			</div>
 		</div>
 	</section>
@@ -56,18 +56,6 @@ const groups = [
 			</section>
 		))
 	}
-
-	<section class="section-shell-compact registration-note">
-		<div class="site-container note-grid">
-			<p class="eyebrow">Registration / 申込</p>
-			<h2>Google Form links will appear here once approved.</h2>
-			<p>
-				Registration links, full rules, eligibility, judging criteria, and confirmed schedules are
-				not yet public. Every competition page clearly marks the current status.
-			</p>
-			<a href="/#registration">View the registration timeline →</a>
-		</div>
-	</section>
 </BaseLayout>
 
 <style>

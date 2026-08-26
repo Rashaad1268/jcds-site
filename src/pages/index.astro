@@ -3,7 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import CompetitionCard from "@/components/CompetitionCard.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import { competitions } from "@/data/competitions";
-import { ceremonyHighlights, club, event, publicTimeline, registration } from "@/data/site";
+import { ceremonyHighlights, club, event, registration } from "@/data/site";
 
 export const prerender = true;
 ---
@@ -38,8 +38,8 @@ export const prerender = true;
 					>
 				</div>
 				<dl class="hero-facts" aria-label="MUSUBI event summary">
-					<div><dt>Date <span>· Provisional</span></dt><dd>{event.dateLabel}</dd></div>
-					<div><dt>Venue</dt><dd>Main Hall · Colombo 07</dd></div>
+					<div><dt>Date</dt><dd>{event.dateLabel}</dd></div>
+					<div><dt>Venue</dt><dd>School Main Hall</dd></div>
 					<div><dt>Programme</dt><dd>9 inter-school competitions</dd></div>
 				</dl>
 			</div>
@@ -95,7 +95,7 @@ export const prerender = true;
 					id="competitions-title"
 					eyebrow="Inter-school programme / 競技"
 					title="Nine competitions for Sri Lankan schools"
-					description="The proposed programme covers language, performance, knowledge, costume, paper craft, and visual art. Every date and arrangement is still provisional."
+					description="The programme covers language, performance, knowledge, costume, paper craft, and visual art."
 				/>
 				<a class="section-link" href="/competitions/"
 					>View programme by mode <span aria-hidden="true">→</span></a
@@ -104,96 +104,6 @@ export const prerender = true;
 			<div class="competition-grid">
 				{competitions.map((competition) => <CompetitionCard {competition} />)}
 			</div>
-		</div>
-	</section>
-
-	<section class="japanese-day" aria-labelledby="day-title">
-		<figure class="day-art">
-			<img
-				src="/assets/images/kiitsu-plum-camellia.webp"
-				width="1900"
-				height="874"
-				alt="Flowering plum and camellia branches across a gold Japanese folding screen."
-				loading="lazy"
-			/>
-			<figcaption>
-				Suzuki Kiitsu, <cite>Flowering Plum and Camellia</cite>, c. 1850s · Honolulu Museum of Art ·
-				Public Domain
-			</figcaption>
-		</figure>
-		<div class="site-container day-overlay">
-			<div class="day-copy">
-				<p class="eyebrow">Japanese Day / 日本の日</p>
-				<h2 id="day-title">Japanese Day brings everyone together.</h2>
-				<p>{event.purpose}</p>
-				<dl>
-					<div><dt>Date</dt><dd>{event.dateLabel}</dd></div>
-					<div><dt>Venue</dt><dd>{event.venue}</dd></div>
-					<div><dt>Audience</dt><dd>{event.attendanceLabel}</dd></div>
-				</dl>
-			</div>
-		</div>
-	</section>
-
-	<section class="section-shell ceremony-section" aria-labelledby="ceremony-title">
-		<div class="site-container ceremony-grid">
-			<div class="ceremony-heading">
-				<p class="section-index" aria-hidden="true">式典 / 03</p>
-				<SectionHeading
-					id="ceremony-title"
-					eyebrow="The day / 当日"
-					title="What is planned for Japanese Day"
-					description="The proposed programme welcomes participating schools, presents the awards, and shares traditional and contemporary Japanese culture."
-				/>
-			</div>
-			<ol class="ceremony-list">
-				{
-					ceremonyHighlights.map((item, index) => (
-						<li>
-							<>
-								<span>{String(index + 1).padStart(2, "0")}</span>
-								<div>
-									<>
-										<h3>{item.title}</h3>
-										<p>{item.description}</p>
-									</>
-								</div>
-							</>
-						</li>
-					))
-				}
-			</ol>
-		</div>
-	</section>
-
-	<section id="timeline" class="section-shell timeline-section" aria-labelledby="timeline-title">
-		<div class="site-container timeline-shell">
-			<div class="timeline-heading">
-				<p class="section-index" aria-hidden="true">日程 / 04</p>
-				<SectionHeading
-					id="timeline-title"
-					eyebrow="Proposed timeline / 日程"
-					title="From registration to Japanese Day"
-					description="The proposal’s public milestones are presented here as a working timeline. Each remains subject to final confirmation."
-				/>
-			</div>
-			<ol class="timeline-list">
-				{
-					publicTimeline.map((item, index) => (
-						<li>
-							<div class="timeline-number">{String(index + 1).padStart(2, "0")}</div>
-							<div>
-								<>
-									<time datetime={item.startDate}>{item.displayDate}</time>
-									<h3>{item.label}</h3>
-									<p>{item.description}</p>
-								</>
-							</div>
-							<span class="provisional-mark">Provisional</span>
-						</li>
-					))
-				}
-			</ol>
 		</div>
 	</section>
 
@@ -233,35 +143,6 @@ export const prerender = true;
 		</div>
 	</section>
 
-	<section
-		id="registration"
-		class="section-shell registration-band"
-		aria-labelledby="registration-title"
-	>
-		<div class="site-container registration-grid">
-			<div class="registration-mark" aria-hidden="true">
-				<img
-					src="/assets/brand/musubi-vertical.png"
-					width="477"
-					height="1500"
-					alt=""
-					loading="lazy"
-				/>
-			</div>
-			<div>
-				<p class="eyebrow">School registration / 申込</p>
-				<h2 id="registration-title" class="display-title">{registration.displayDate}</h2>
-				<p>{registration.description}</p>
-			</div>
-			<div class="registration-status" aria-live="polite">
-				<span aria-hidden="true"></span>
-				<strong>{registration.linkLabel}</strong>
-				<small
-					>The approved Google Form will replace this status. No placeholder URL is active.</small
-				>
-			</div>
-		</div>
-	</section>
 </BaseLayout>
 
 <style>
@@ -524,95 +405,6 @@ export const prerender = true;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 1.15rem;
 	}
-	.japanese-day {
-		position: relative;
-		min-height: 42rem;
-		overflow: hidden;
-		border-block: 1px solid var(--border-gold);
-	}
-	.day-art {
-		position: absolute;
-		inset: 0;
-		margin: 0;
-	}
-	.day-art::after {
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(
-			90deg,
-			rgb(15 13 11 / 0.96) 0 42%,
-			rgb(15 13 11 / 0.5) 68%,
-			rgb(15 13 11 / 0.68)
-		);
-		content: "";
-	}
-	.day-art img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-	.day-art figcaption {
-		position: absolute;
-		z-index: 1;
-		right: 1.5rem;
-		bottom: 1rem;
-		max-width: 30rem;
-		color: rgb(246 241 232 / 0.62);
-		font-size: 0.58rem;
-		text-align: right;
-	}
-	.day-overlay {
-		position: relative;
-		z-index: 2;
-		display: flex;
-		min-height: 42rem;
-		align-items: center;
-	}
-	.day-copy {
-		max-width: 40rem;
-	}
-	.day-copy h2 {
-		margin: 0;
-		color: var(--color-gold-300);
-		font-family: var(--font-display);
-		font-size: clamp(3rem, 7vw, 6rem);
-		font-weight: 600;
-		line-height: 0.9;
-	}
-	.day-copy > p:not(.eyebrow) {
-		margin-top: 2rem;
-		color: var(--color-ivory-100);
-		font-family: var(--font-display);
-		font-size: clamp(1.2rem, 2vw, 1.55rem);
-		line-height: 1.5;
-	}
-	.day-copy dl {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		margin: 3rem 0 0;
-		border-block: 1px solid var(--border-gold);
-	}
-	.day-copy dl div {
-		padding: 1rem;
-	}
-	.day-copy dl div:first-child {
-		padding-left: 0;
-	}
-	.day-copy dl div + div {
-		border-left: 1px solid var(--border-soft);
-	}
-	.day-copy dt {
-		color: var(--color-gold-300);
-		font-size: 0.62rem;
-		font-weight: 700;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-	}
-	.day-copy dd {
-		margin: 0.35rem 0 0;
-		color: var(--color-ivory-100);
-		font-size: 0.75rem;
-	}
 	.ceremony-section {
 		border-bottom: 1px solid var(--border-soft);
 		background:
@@ -718,13 +510,6 @@ export const prerender = true;
 		margin: 0.45rem 0 0;
 		color: var(--color-ivory-300);
 		font-size: 0.85rem;
-	}
-	.provisional-mark {
-		color: var(--color-ivory-500);
-		font-size: 0.58rem;
-		font-weight: 700;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
 	}
 	.club-section {
 		background: linear-gradient(180deg, #17130f, var(--color-ink-900) 58%, #211410);
@@ -931,21 +716,8 @@ export const prerender = true;
 		.principles {
 			grid-template-columns: 1fr;
 		}
-		.day-copy dl {
-			grid-template-columns: 1fr;
-		}
-		.day-copy dl div {
-			padding-inline: 0;
-		}
-		.day-copy dl div + div {
-			border-top: 1px solid var(--border-soft);
-			border-left: 0;
-		}
 		.timeline-list li {
 			grid-template-columns: 2.7rem 1fr;
-		}
-		.provisional-mark {
-			grid-column: 2;
 		}
 	}
 </style>

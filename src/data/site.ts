@@ -8,7 +8,6 @@ export interface PublicTimelineItem {
 	endDate?: string;
 	displayDate: string;
 	description: string;
-	provisional: true;
 }
 
 export interface CeremonyHighlight {
@@ -40,21 +39,15 @@ export const event = {
 	date: "2026-11-03",
 	dateLabel: "3 November 2026",
 	venue: "Main Hall, D. S. Senanayake College, Colombo 07",
-	expectedAttendance: 300,
-	attendanceLabel: "Approximately 300 attendees",
 	audience: "Students, teachers, invited guests, organizers, and other participants",
-	purpose:
-		"Japanese Day brings participating school communities together to celebrate Japanese language and culture and to recognize achievement across the MUSUBI inter-school competitions.",
 	theme:
 		"Japanese language and traditional culture presented alongside contemporary Japanese influences such as music, art, technology, fashion, anime culture, and urban Japan.",
-	provisionalNotice: "Provisional. Subject to final confirmation.",
 } as const;
 
 export const registration = {
 	startDate: "2026-09-14",
 	endDate: "2026-09-27",
 	displayDate: "14 to 27 September 2026",
-	provisional: true,
 	registrationUrl: null,
 	linkLabel: "Registration link coming soon",
 	description:
@@ -70,7 +63,6 @@ export const publicTimeline = [
 		displayDate: "14 to 27 September 2026",
 		description:
 			"Participating schools register and nominate one representative for official updates.",
-		provisional: true,
 	},
 	{
 		id: "competition-window",
@@ -79,8 +71,7 @@ export const publicTimeline = [
 		endDate: "2026-10-19",
 		displayDate: "28 September to 19 October 2026",
 		description:
-			"The proposed programme and submission window for inter-school competition entries.",
-		provisional: true,
+			"The programme and submission window for inter-school competition entries.",
 	},
 	{
 		id: "on-site-competitions",
@@ -88,7 +79,6 @@ export const publicTimeline = [
 		startDate: "2026-10-15",
 		displayDate: "15 October 2026",
 		description: "Dictation, speech, quiz, and origami competitions at D. S. Senanayake College.",
-		provisional: true,
 	},
 	{
 		id: "submission-deadline",
@@ -96,7 +86,6 @@ export const publicTimeline = [
 		startDate: "2026-10-19",
 		displayDate: "19 October 2026",
 		description: "Proposed closing date for online entries and physical artwork submissions.",
-		provisional: true,
 	},
 	{
 		id: "judging",
@@ -105,7 +94,6 @@ export const publicTimeline = [
 		endDate: "2026-10-25",
 		displayDate: "20 to 25 October 2026",
 		description: "Competition entries are evaluated ahead of the final ceremony.",
-		provisional: true,
 	},
 	{
 		id: "programme-preparation",
@@ -114,7 +102,6 @@ export const publicTimeline = [
 		endDate: "2026-10-29",
 		displayDate: "26 to 29 October 2026",
 		description: "Results, certificates, prizes, and the Japanese Day programme are prepared.",
-		provisional: true,
 	},
 	{
 		id: "venue-preparation",
@@ -123,7 +110,6 @@ export const publicTimeline = [
 		endDate: "2026-11-02",
 		displayDate: "30 October to 2 November 2026",
 		description: "Final venue preparation and technical rehearsals take place.",
-		provisional: true,
 	},
 	{
 		id: "japanese-day",
@@ -131,7 +117,6 @@ export const publicTimeline = [
 		startDate: "2026-11-03",
 		displayDate: "3 November 2026",
 		description: "The inter-school awards ceremony and celebration of Japanese culture.",
-		provisional: true,
 	},
 ] as const satisfies readonly PublicTimelineItem[];
 
@@ -147,7 +132,7 @@ export const ceremonyHighlights = [
 	{
 		title: "Awards, certificates, and prizes",
 		description:
-			"Students receive the proposed awards, certificates, and prizes for the competitions.",
+			"Students receive the awards, certificates, and prizes for the competitions.",
 	},
 	{
 		title: "Culture and entertainment",

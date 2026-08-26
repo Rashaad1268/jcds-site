@@ -15,7 +15,6 @@ The public site uses the club-provided MUSUBI lettering and club logo as its pri
 - _Landscape_, attributed to Sōami, 15th to early 16th century, The Metropolitan Museum of Art, 2018.853.7. Public Domain. [Museum record](https://www.metmuseum.org/art/collection/search/816194)
 - Ogata Kōrin, _Rough Waves_, early 18th century, The Metropolitan Museum of Art, 26.117. CC0. [Source record](https://commons.wikimedia.org/wiki/File:%E6%B3%A2%E6%BF%A4%E5%9B%B3%E5%B1%8F%E9%A2%A8-Rough_Waves_MET_DT1615.jpg)
 - _Models of Paper Folding (Origata Tehon)_, Japan, 1697, The Metropolitan Museum of Art, 2013.248.1 to .25. CC0. This is a historical manual of formal gift wrapping, not a modern recreational-origami manual. [Source record](https://commons.wikimedia.org/wiki/File:%E6%8A%98%E5%BD%A2%E6%89%8B%E6%9C%AC-Models_of_Paper_Folding_%28Origata_tehon%29_MET_DP702086.jpg)
-- Suzuki Kiitsu, _Flowering Plum and Camellia_, c. 1850s, Honolulu Museum of Art, 3378.1. Public Domain. [Source record](https://commons.wikimedia.org/wiki/File:%27Flowering_Plum_and_Camellia%27%2C_six-fold_screen_by_Suzuki_Kiitsu%2C_c._1850s%2C_ink_and_color_on_paper%2C_Japanese%2C_Honolulu_Academy_of_Arts.jpg)
 
 ## Documentary photography
 

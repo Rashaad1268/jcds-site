@@ -45,7 +45,7 @@ When a Google Form is ready, replace the matching value:
 registrationUrl: "https://forms.gle/your-form-id";
 ```
 
-The schedule is provisional. Do not remove the provisional labels until the club confirms the final dates and arrangements.
+The schedule remains subject to confirmation until the club approves the final dates and arrangements.
 
 ## Blog
 

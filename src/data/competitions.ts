@@ -17,7 +17,6 @@ export interface CompetitionDate {
 	startDate: string;
 	endDate?: string;
 	displayDate: string;
-	provisional: true;
 }
 
 export interface Competition {
@@ -61,20 +60,17 @@ const ONLINE_DATES = {
 	startDate: "2026-09-28",
 	endDate: "2026-10-19",
 	displayDate: "28 September to 19 October 2026",
-	provisional: true,
 } as const satisfies CompetitionDate;
 
 const ON_SITE_DATE = {
 	startDate: "2026-10-15",
 	displayDate: "15 October 2026",
-	provisional: true,
 } as const satisfies CompetitionDate;
 
 const ART_DATES = {
 	startDate: "2026-09-28",
 	endDate: "2026-10-19",
 	displayDate: "Proposed: 28 September to 19 October 2026",
-	provisional: true,
 } as const satisfies CompetitionDate;
 
 const ONLINE_SUBMISSION_NOTE =
@@ -219,7 +215,7 @@ export const competitions = [
 		submissionNote:
 			"Completed artwork will be delivered to the main gate of D. S. Senanayake College according to the official hand-in instructions.",
 		detailsNote:
-			"The proposed submission period is 28 September to 19 October 2026. Exact drop-off dates, times, rules, and judging criteria will be confirmed.",
+			"The submission period is 28 September to 19 October 2026. Exact drop-off dates, times, rules, and judging criteria will be confirmed.",
 		detailsStatusLabel: COMING_SOON,
 		registrationUrl: null,
 		registrationLabel: REGISTRATION_COMING_SOON,
