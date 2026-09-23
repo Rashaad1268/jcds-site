@@ -32,7 +32,7 @@ const modeJapanese =
 
 <BaseLayout
 	title={`${competition.title} | MUSUBI 2026`}
-	description={`${competition.summary} View the proposed date, mode, current registration status, and official-detail notice.`}
+	description={`${competition.summary} View the date, mode, current registration status, and official-detail notice.`}
 	socialImage={media.src}
 >
 	<section class="detail-hero">
@@ -71,12 +71,12 @@ const modeJapanese =
 		<div class="site-container information-grid">
 			<div>
 				<p class="eyebrow">At a glance / 概要</p>
-				<h2 class="section-title">Proposed competition information</h2>
+				<h2 class="section-title">Competition information</h2>
 			</div>
 			<dl class="facts">
 				<div><dt>Participation mode</dt><dd>{competition.modeLabel}</dd></div>
 				<div>
-					<dt>Proposed date</dt><dd>
+					<dt>Date</dt><dd>
 						<time datetime={competition.dates.startDate}>{competition.dates.displayDate}</time
 						><small>subject to confirmation</small>
 					</dd>

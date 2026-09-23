@@ -85,7 +85,7 @@ export const publicTimeline = [
 		label: "Submission deadline",
 		startDate: "2026-10-19",
 		displayDate: "19 October 2026",
-		description: "Proposed closing date for online entries and physical artwork submissions.",
+		description: "Closing date for online entries and physical artwork submissions.",
 	},
 	{
 		id: "judging",

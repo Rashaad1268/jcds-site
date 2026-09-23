@@ -70,7 +70,7 @@ const ON_SITE_DATE = {
 const ART_DATES = {
 	startDate: "2026-09-28",
 	endDate: "2026-10-19",
-	displayDate: "Proposed: 28 September to 19 October 2026",
+	displayDate: "28 September to 19 October 2026",
 } as const satisfies CompetitionDate;
 
 const ONLINE_SUBMISSION_NOTE =
@@ -197,7 +197,7 @@ export const competitions = [
 		location: "D. S. Senanayake College, Colombo 07",
 		summary: "Students can enter their Japanese themed displays through a physical submission to the college.",
 		submissionNote:
-			"Completed artwork will be delivered to the main gate of D. S. Senanayake College according to the official hand-in instructions.",
+			"Completed displays will be delivered to the main gate of D. S. Senanayake College according to the official hand-in instructions.",
 		detailsNote:
 			"The submission period is 28 September to 19 October 2026. Exact drop-off dates, times, rules, and judging criteria will be confirmed.",
 		detailsStatusLabel: COMING_SOON,
