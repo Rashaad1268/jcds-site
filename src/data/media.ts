@@ -71,7 +71,7 @@ export const competitionMedia: Record<CompetitionSlug, CompetitionMedia> = {
 		credit: "MaedaAkihiko · CC BY-SA 4.0 · Cropped and colour-adjusted",
 		objectPosition: "46% 68%",
 	},
-	origami: origata,
+	"display-competition": origata,
 	"japanese-art": {
 		src: "/assets/images/rough-waves.webp",
 		width: 1800,
