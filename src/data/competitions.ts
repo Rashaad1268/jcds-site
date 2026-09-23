@@ -6,7 +6,7 @@ export const competitionSlugs = [
 	"japanese-dictation",
 	"japanese-speech",
 	"japanese-quiz",
-	"origami",
+	"display-competition",
 	"japanese-art",
 ] as const;
 
@@ -44,15 +44,15 @@ export const competitionModeMeta = {
 	online: {
 		label: "Online submission",
 		description:
-			"Entries are submitted electronically according to the official submission instructions.",
+			"Entries are submitted via Google Forms",
 	},
 	"on-site": {
 		label: "On-site",
-		description: "Competitors attend D. S. Senanayake College for the scheduled competition.",
+		description: "Competitors attend D. S. Senanayake College on the 15th of October",
 	},
 	"physical-submission": {
 		label: "Physical submission",
-		description: "Completed work is delivered according to the official hand-in instructions.",
+		description: "Completed work is delivered to the school main gate",
 	},
 } as const satisfies Record<CompetitionMode, CompetitionModeMeta>;
 
@@ -188,17 +188,18 @@ export const competitions = [
 		registrationLabel: REGISTRATION_COMING_SOON,
 	},
 	{
-		slug: "origami",
-		title: "Origami Competition",
-		shortTitle: "Origami",
-		mode: "on-site",
-		modeLabel: "On-site",
-		dates: ON_SITE_DATE,
+		slug: "display-competition",
+		title: "Japanese Display Competition",
+		shortTitle: "Japanese display",
+		mode: "physical-submission",
+		modeLabel: "Physical submission",
+		dates: ART_DATES,
 		location: "D. S. Senanayake College, Colombo 07",
-		summary: "Students will create paper-folded work in an on-site inter-school competition.",
+		summary: "Students can enter their Japanese themed displays through a physical submission to the college.",
 		submissionNote:
-			"This competition is planned to take place at D. S. Senanayake College on 15 October 2026.",
-		detailsNote: ON_SITE_DETAILS_NOTE,
+			"Completed artwork will be delivered to the main gate of D. S. Senanayake College according to the official hand-in instructions.",
+		detailsNote:
+			"The submission period is 28 September to 19 October 2026. Exact drop-off dates, times, rules, and judging criteria will be confirmed.",
 		detailsStatusLabel: COMING_SOON,
 		registrationUrl: null,
 		registrationLabel: REGISTRATION_COMING_SOON,

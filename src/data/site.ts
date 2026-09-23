@@ -45,22 +45,22 @@ export const event = {
 } as const;
 
 export const registration = {
-	startDate: "2026-09-14",
+	startDate: "2026-09-22",
 	endDate: "2026-09-27",
-	displayDate: "14 to 27 September 2026",
+	displayDate: "22 to 27 September 2026",
 	registrationUrl: null,
 	linkLabel: "Registration link coming soon",
 	description:
-		"Schools are expected to register from 14 to 27 September 2026. The approved Google Form will be added here. Each school will nominate one representative to receive the rules, submission instructions, venue details, and updates.",
+		"Schools are expected to register from 22 to 27 September 2026. The approved Google Form will be added here. Each school will nominate one representative to receive the rules, submission instructions, venue details, and updates.",
 } as const;
 
 export const publicTimeline = [
 	{
 		id: "school-registration",
 		label: "School registration",
-		startDate: "2026-09-14",
+		startDate: "2026-09-22",
 		endDate: "2026-09-27",
-		displayDate: "14 to 27 September 2026",
+		displayDate: "22 to 27 September 2026",
 		description:
 			"Participating schools register and nominate one representative for official updates.",
 	},
