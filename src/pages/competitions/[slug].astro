@@ -107,36 +107,6 @@ const modeJapanese =
 		</div>
 	</section>
 
-	<section id="registration" class="section-shell registration-section">
-		<div class="site-container registration-grid">
-			<div>
-				<p class="eyebrow">Registration / 申込</p>
-				<h2 class="section-title">Register your school</h2>
-				<p>
-					Registration is planned for 14 to 27 September 2026. The official Google Form will be
-					published here once approved.
-				</p>
-			</div>
-			<div class="registration-state" aria-live="polite">
-				{
-					registrationOpen ? (
-						<a href={competition.registrationUrl} target="_blank" rel="noreferrer">
-							Open Google Form <span aria-hidden="true">↗</span>
-						</a>
-					) : (
-						<>
-							<>
-								<span class="state-dot" aria-hidden="true" />
-								<strong>{competition.registrationLabel}</strong>
-								<small>No placeholder or unofficial form is linked.</small>
-							</>
-						</>
-					)
-				}
-			</div>
-		</div>
-	</section>
-
 	{
 		related.length > 0 && (
 			<section class="section-shell-compact related-section">
