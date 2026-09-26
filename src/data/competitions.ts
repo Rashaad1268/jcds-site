@@ -118,7 +118,7 @@ export const competitions = [
 		modeLabel: "Online submission",
 		dates: ONLINE_DATES,
 		rulesPdfUrl: "/rules/cosplay-rules.pdf",
-		submissionFormUrl: null,
+		submissionFormUrl: "https://forms.gle/ohSLU2aU9XaGqz868",
 		summary: "Students can submit a cosplay entry for this inter-school competition.",
 		submissionNote: ONLINE_SUBMISSION_NOTE,
 	},
