@@ -58,10 +58,6 @@ The public blog is intentionally empty. Instructions and a frontmatter example a
 
 New articles belong in `src/content/blog/` as Markdown or MDX files. Keep `draft: true` while editing. A post becomes public after it has real content, a suitable publish date, and `draft: false`.
 
-## Images and credits
-
-Prepared website assets are in `public/assets/`. Source files and attribution notes are listed in `ASSET_SOURCES.md` and displayed on the site at `/credits/`.
-
 The reproducible image preparation script is `scripts/prepare_assets.py`. Its local Python environment and original source downloads are ignored by Git.
 
 ## Production URL
