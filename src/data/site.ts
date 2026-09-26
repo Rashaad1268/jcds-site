@@ -48,10 +48,10 @@ export const registration = {
 	startDate: "2026-09-22",
 	endDate: "2026-09-27",
 	displayDate: "22 to 27 September 2026",
-	registrationUrl: null,
-	linkLabel: "Registration link coming soon",
+	schoolRegistrationFormUrl: null,
+	linkLabel: "School registration form coming soon",
 	description:
-		"Schools are expected to register from 22 to 27 September 2026. The approved Google Form will be added here. Each school will nominate one representative to receive the rules, submission instructions, venue details, and updates.",
+		"A school representative registers the school first. Students from registered schools can then submit entries through the Google Form for each online competition.",
 } as const;
 
 export const publicTimeline = [
@@ -70,15 +70,14 @@ export const publicTimeline = [
 		startDate: "2026-09-28",
 		endDate: "2026-10-19",
 		displayDate: "28 September to 19 October 2026",
-		description:
-			"The programme and submission window for inter-school competition entries.",
+		description: "The programme and submission window for inter-school competition entries.",
 	},
 	{
 		id: "on-site-competitions",
 		label: "On-site competitions",
 		startDate: "2026-10-15",
 		displayDate: "15 October 2026",
-		description: "Dictation, speech, quiz, and origami competitions at D. S. Senanayake College.",
+		description: "Dictation, speech, and quiz competitions take place at D. S. Senanayake College.",
 	},
 	{
 		id: "submission-deadline",
@@ -131,8 +130,7 @@ export const ceremonyHighlights = [
 	},
 	{
 		title: "Awards, certificates, and prizes",
-		description:
-			"Students receive the awards, certificates, and prizes for the competitions.",
+		description: "Students receive the awards, certificates, and prizes for the competitions.",
 	},
 	{
 		title: "Culture and entertainment",

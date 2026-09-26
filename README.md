@@ -35,14 +35,19 @@ npm run verify
 
 `npm run verify` checks the routes, metadata, competition data, registration state, empty blog, RSS feed, sitemap, and build output.
 
-## Competition registrations
+## Competition registrations and rules
 
-Competition details live in `src/data/competitions.ts`. Every `registrationUrl` is currently `null`, so the interface shows that the registration link is coming soon.
+School registration is configured in `src/data/site.ts`. When its Google Form is ready, add the URL to `schoolRegistrationFormUrl`.
 
-When a Google Form is ready, replace the matching value:
+Participant Google Forms are configured in `src/data/competitions.ts`. Add links to `submissionFormUrl` for Japanese Singing, Article Writing, Video Presentation, and Cosplay only. Keep the other competitions without participant form links.
+
+The official competition PDFs are stored in `public/rules/`. Each competition's `rulesPdfUrl` points to a descriptive path such as `/rules/video-presentation-rules.pdf`; the same link is shown on its card and detail page.
+
+Use secure Google Forms links, for example:
 
 ```ts
-registrationUrl: "https://forms.gle/your-form-id";
+schoolRegistrationFormUrl: "https://forms.gle/your-form-id";
+submissionFormUrl: "https://forms.gle/your-form-id";
 ```
 
 The schedule remains subject to confirmation until the club approves the final dates and arrangements.

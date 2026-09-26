@@ -19,9 +19,21 @@ const expectedSlugs = [
 	"japanese-dictation",
 	"japanese-speech",
 	"japanese-quiz",
-	"origami",
+	"display-competition",
 	"japanese-art",
 ];
+const expectedRuleFiles = {
+	"japanese-singing": "japanese-singing-rules.pdf",
+	"article-writing": "article-writing-rules.pdf",
+	presentation: "video-presentation-rules.pdf",
+	cosplay: "cosplay-rules.pdf",
+	"japanese-dictation": "japanese-dictation-rules.pdf",
+	"japanese-speech": "japanese-speech-rules.pdf",
+	"japanese-quiz": "japanese-quiz-rules.pdf",
+	"display-competition": "japanese-display-rules.pdf",
+	"japanese-art": "japanese-art-rules.pdf",
+};
+const onlineSlugs = ["japanese-singing", "article-writing", "presentation", "cosplay"];
 
 const failures = [];
 let checks = 0;
@@ -205,10 +217,10 @@ function assertNoDummyRegistrationLinks(route, html) {
 			normalized === "#" ||
 			normalized === "/#" ||
 			normalized.startsWith("javascript:") ||
-			normalized.includes("forms.gle") ||
-			normalized.includes("docs.google.com/forms") ||
 			normalized.includes("placeholder") ||
-			normalized.includes("example.com")
+			normalized.includes("example.com") ||
+			((normalized.includes("forms.gle") || normalized.includes("docs.google.com/forms")) &&
+				!isGoogleFormUrl(href))
 		);
 	});
 
@@ -217,6 +229,19 @@ function assertNoDummyRegistrationLinks(route, html) {
 		route,
 		`Found dummy or unexpected registration href(s): ${[...new Set(invalid)].join(", ")}`,
 	);
+}
+
+function isGoogleFormUrl(value) {
+	try {
+		const url = new URL(value);
+		return (
+			url.protocol === "https:" &&
+			(url.hostname === "forms.gle" ||
+				(url.hostname === "docs.google.com" && url.pathname.startsWith("/forms/")))
+		);
+	} catch {
+		return false;
+	}
 }
 
 function findBuiltFile(fileName) {
@@ -288,12 +313,25 @@ check(
 	`Slug set mismatch. Missing: ${missingSlugs.join(", ") || "none"}; unexpected: ${unexpectedSlugs.join(", ") || "none"}.`,
 );
 
-const nullRegistrationCount = (competitionSource.match(/\bregistrationUrl\s*:\s*null\b/g) ?? [])
-	.length;
+const rulesPdfUrls = [...competitionSource.matchAll(/\brulesPdfUrl\s*:\s*["']([^"']+)["']/g)].map(
+	(match) => match[1],
+);
 check(
-	nullRegistrationCount === 9,
+	rulesPdfUrls.length === 9 &&
+		new Set(rulesPdfUrls).size === 9 &&
+		rulesPdfUrls.every((url) => /^\/rules\/[a-z0-9-]+-rules\.pdf$/.test(url)),
 	"competition data",
-	`Expected all 9 registrationUrl values to be null until official forms are supplied; found ${nullRegistrationCount}.`,
+	`Expected 9 unique, descriptive /rules/*-rules.pdf URLs; found ${rulesPdfUrls.length}.`,
+);
+
+const schoolRegistrationData = readRequired(
+	resolve(root, "src/data/site.ts"),
+	"school registration data",
+);
+check(
+	/schoolRegistrationFormUrl\s*:\s*null/.test(schoolRegistrationData),
+	"school registration data",
+	"Expected a blank school registration form URL to fill in later.",
 );
 
 check(
@@ -307,6 +345,23 @@ const home = requireRouteHtml("/");
 const homeMetadata = assertPage("/", home.html);
 if (homeMetadata) representativeMetadata.push({ route: "/", ...homeMetadata });
 assertNoDummyRegistrationLinks("/", home.html);
+if (home.html) {
+	const homeLinks = (home.html.match(/<a\b[^>]*>/gi) ?? []).map((tag) => ({
+		href: getAttribute(tag, "href"),
+		target: getAttribute(tag, "target"),
+	}));
+	const rulesLinks = homeLinks.filter(({ href }) => href.startsWith("/rules/"));
+	check(
+		rulesLinks.length === 9 && rulesLinks.every(({ target }) => target === "_blank"),
+		"homepage competition cards",
+		`Expected 9 new-tab rules links, found ${rulesLinks.length}.`,
+	);
+	check(
+		/school registration form coming soon/i.test(stripHtml(home.html)),
+		"homepage school registration",
+		"Missing the school registration form placeholder.",
+	);
+}
 
 for (const slug of expectedSlugs) {
 	const route = `/competitions/${slug}`;
@@ -317,11 +372,29 @@ for (const slug of expectedSlugs) {
 
 	if (page.html) {
 		const text = stripHtml(page.html);
+		const ruleHref = `/rules/${expectedRuleFiles[slug]}`;
+		const routeLinks = (page.html.match(/<a\b[^>]*>/gi) ?? []).map((tag) => ({
+			href: getAttribute(tag, "href"),
+			target: getAttribute(tag, "target"),
+		}));
 		check(
-			/registration(?: link)? coming soon/i.test(text),
+			routeLinks.some(({ href, target }) => href === ruleHref && target === "_blank"),
 			route,
-			"Missing the visible non-clickable registration-coming-soon state.",
+			`Missing the new-tab rules PDF link: ${ruleHref}.`,
 		);
+		check(
+			existsSync(resolve(root, "public", ruleHref.slice(1))) &&
+				existsSync(resolve(root, "dist", ruleHref.slice(1))),
+			route,
+			`Rules PDF must exist in source and build output: ${ruleHref}.`,
+		);
+		if (onlineSlugs.includes(slug)) {
+			check(
+				/participant google form coming soon|submit your entry/i.test(text),
+				route,
+				"Missing the participant submission form link or its placeholder.",
+			);
+		}
 	}
 }
 

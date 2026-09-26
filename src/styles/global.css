@@ -385,3 +385,26 @@ a {
 		@apply font-sans;
 	}
 }
+
+.primary-action {
+	display: inline-flex;
+	min-height: 3.25rem;
+	align-items: center;
+	padding-inline: 1.25rem;
+	border: 1px solid var(--color-vermilion-500);
+	background: var(--color-vermilion-650);
+	font-size: 0.76rem;
+	font-weight: 700;
+	letter-spacing: 0.09em;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.primary-action:hover {
+	background: var(--color-vermilion-500);
+}
+
+@media (max-width: 34rem) {
+	.primary-action {
+		justify-content: center;
+	}
+}

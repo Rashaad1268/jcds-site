@@ -6,15 +6,12 @@ interface Props {
 }
 
 const { competition } = Astro.props;
-const href = `/competitions/${competition.slug}/`;
+const detailsHref = `/competitions/${competition.slug}/`;
 const modeClass = `mode-${competition.mode}`;
-const registrationStatus = competition.registrationUrl
-	? "Registration open"
-	: competition.registrationLabel;
 ---
 
 <article class="competition-card">
-	<a class="card-link focus-gold" href={href} aria-label={`View ${competition.title}`}>
+	<a class="card-link focus-gold" href={detailsHref} aria-label={`View ${competition.title}`}>
 		<div class="card-topline">
 			<span class:list={["mode-badge", modeClass]}>{competition.modeLabel}</span>
 		</div>
@@ -36,18 +33,26 @@ const registrationStatus = competition.registrationUrl
 				<dd>{competition.location ?? competition.modeLabel}</dd>
 			</div>
 		</dl>
-
-		<div class="card-footer">
-			<span class:list={["registration-status", { open: Boolean(competition.registrationUrl) }]}>
-				<span class="status-dot" aria-hidden="true"></span>{registrationStatus}
-			</span>
-			<span class="view-link">View competition <span aria-hidden="true">→</span></span>
-		</div>
 	</a>
+	<div class="card-footer">
+		<a
+			class="rules-link focus-gold"
+			href={competition.rulesPdfUrl}
+			target="_blank"
+			rel="noreferrer"
+		>
+			Read competition rules <span aria-hidden="true">↗</span>
+		</a>
+		<a class="view-link focus-gold" href={detailsHref}>
+			View competition <span aria-hidden="true">→</span>
+		</a>
+	</div>
 </article>
 
 <style>
 	.competition-card {
+		display: flex;
+		flex-direction: column;
 		height: 100%;
 		border: 1px solid var(--border-soft);
 		border-top-color: var(--border-gold);
@@ -62,8 +67,8 @@ const registrationStatus = competition.registrationUrl
 
 	.card-link {
 		display: flex;
+		flex: 1;
 		min-height: 21rem;
-		height: 100%;
 		flex-direction: column;
 		padding: clamp(1.35rem, 3vw, 1.8rem);
 		color: inherit;
@@ -163,36 +168,20 @@ const registrationStatus = competition.registrationUrl
 
 	.card-footer {
 		display: flex;
-		align-items: flex-end;
+		align-items: baseline;
 		justify-content: space-between;
 		gap: 1rem;
-		padding-top: 1rem;
+		margin-inline: clamp(1.35rem, 3vw, 1.8rem);
+		padding-block: 1rem;
 		border-top: 1px solid var(--border-gold);
 	}
 
-	.registration-status {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.45rem;
-		color: var(--color-ivory-500);
+	.rules-link {
+		color: var(--color-ivory-300);
 		font-size: 0.66rem;
-		font-weight: 600;
+		font-weight: 700;
 		line-height: 1.35;
-	}
-
-	.status-dot {
-		width: 0.35rem;
-		aspect-ratio: 1;
-		border-radius: 50%;
-		background: var(--color-ivory-500);
-	}
-
-	.registration-status.open {
-		color: var(--color-gold-300);
-	}
-
-	.registration-status.open .status-dot {
-		background: var(--color-gold-300);
+		text-decoration: none;
 	}
 
 	.view-link {

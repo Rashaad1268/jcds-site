@@ -18,7 +18,9 @@ interface Props {
 }
 const { competition }: Props = Astro.props;
 const media = competitionMedia[competition.slug];
-const registrationOpen = isGoogleFormUrl(competition.registrationUrl);
+const submissionFormUrl = isGoogleFormUrl(competition.submissionFormUrl)
+	? competition.submissionFormUrl
+	: null;
 const related = competitions
 	.filter((item) => item.slug !== competition.slug && item.mode === competition.mode)
 	.slice(0, 2);
@@ -32,7 +34,7 @@ const modeJapanese =
 
 <BaseLayout
 	title={`${competition.title} | MUSUBI 2026`}
-	description={`${competition.summary} View the date, mode, current registration status, and official-detail notice.`}
+	description={`${competition.summary} View the date, entry method, and official competition rules.`}
 	socialImage={media.src}
 >
 	<section class="detail-hero">
@@ -46,8 +48,23 @@ const modeJapanese =
 				<p class="eyebrow">{modeJapanese} · {competition.modeLabel}</p>
 				<h1 class="display-title">{competition.title}</h1>
 				<p class="summary">{competition.summary}</p>
-				<div class="status-row">
-					<span>{competition.detailsStatusLabel}</span>
+				
+				<div class="mt-6">
+					{
+						competition.mode === "online" &&
+							(submissionFormUrl ? (
+								<a
+									class="document-link submission-link"
+									href={submissionFormUrl}
+									target="_blank"
+									rel="noreferrer"
+								>
+									Submit your entry <span aria-hidden="true">↗</span>
+								</a>
+							) : (
+								<p class="submission-pending">Participant Google Form coming soon</p>
+							))
+					}
 				</div>
 			</div>
 			<figure class:list={["detail-media", { portrait: media.height > media.width }]}>
@@ -59,9 +76,14 @@ const modeJapanese =
 					style={`object-position:${media.objectPosition ?? "center"}`}
 				/>
 				<figcaption>
-					<span>{media.caption}</span><a href={media.sourceUrl} target="_blank" rel="noreferrer"
-						>{media.credit}</a
-					>
+					<span>{media.caption}</span>
+					{
+						media.sourceUrl && media.credit && (
+							<a href={media.sourceUrl} target="_blank" rel="noreferrer">
+								{media.credit}
+							</a>
+						)
+					}
 				</figcaption>
 			</figure>
 		</div>
@@ -94,15 +116,34 @@ const modeJapanese =
 		<div class="site-container rules-grid">
 			<div>
 				<p class="eyebrow">Official notice / お知らせ</p>
-				<h2>Rules and format are still being prepared.</h2>
+				<h2>Rules for this competition</h2>
 			</div>
 			<div class="notice-copy">
-				<p>{competition.detailsNote}</p>
-				<p>{competition.submissionNote}</p>
-				<p class="guardrail">
-					The club has not yet published divisions, time limits, team sizes, eligibility, judging
-					criteria, or technical formats. We will add them only after they are confirmed.
+				<p>
+					Only students from registered schools may enter. A school representative registers the
+					school first, then participants follow the rules for their chosen competition.
 				</p>
+				<p>{competition.submissionNote}</p>
+				<div class="document-actions">
+					<a class="document-link" href={competition.rulesPdfUrl} target="_blank" rel="noreferrer">
+						Open competition rules PDF <span aria-hidden="true">↗</span>
+					</a>
+					{
+						competition.mode === "online" &&
+							(submissionFormUrl ? (
+								<a
+									class="document-link submission-link"
+									href={submissionFormUrl}
+									target="_blank"
+									rel="noreferrer"
+								>
+									Submit your entry <span aria-hidden="true">↗</span>
+								</a>
+							) : (
+								<p class="submission-pending">Participant Google Form coming soon</p>
+							))
+					}
+				</div>
 			</div>
 		</div>
 	</section>
@@ -158,20 +199,6 @@ const modeJapanese =
 		font-family: var(--font-display);
 		font-size: clamp(1.3rem, 2.4vw, 1.8rem);
 		line-height: 1.5;
-	}
-	.status-row {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.8rem 1.5rem;
-		margin-top: 2rem;
-		color: var(--color-gold-300);
-		font-size: 0.66rem;
-		font-weight: 700;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-	}
-	.status-row span + span {
-		color: var(--color-ivory-500);
 	}
 	.detail-media {
 		margin: 0;
@@ -262,57 +289,39 @@ const modeJapanese =
 	.notice-copy p {
 		margin: 0 0 1.25rem;
 	}
-	.guardrail {
-		padding-top: 1.25rem;
-		border-top: 1px solid var(--border-soft);
-		color: var(--color-ivory-500);
-		font-size: 0.78rem;
-	}
-	.registration-section {
-		background: linear-gradient(180deg, #17120f, var(--color-ink-950) 72%, #15100e);
-	}
-	.registration-grid {
-		display: grid;
-		grid-template-columns: 1fr 0.8fr;
+	.document-actions {
+		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
-		gap: clamp(3rem, 8vw, 8rem);
+		gap: 0.9rem 1.25rem;
+		margin-top: 1.5rem;
 	}
-	.registration-grid > div:first-child > p:last-child {
-		max-width: 40rem;
-		color: var(--color-ivory-300);
-	}
-	.registration-state {
-		display: grid;
-		grid-template-columns: auto 1fr;
-		align-items: center;
-		gap: 0.35rem 0.8rem;
-		padding: 1.5rem;
-		border-block: 1px solid var(--border-gold);
-	}
-	.registration-state .state-dot {
-		grid-row: 1 / 3;
-		width: 0.55rem;
-		aspect-ratio: 1;
-		border-radius: 50%;
-		background: var(--color-vermilion-500);
-	}
-	.registration-state strong {
-		color: var(--color-ivory-100);
-		font-size: 0.82rem;
-	}
-	.registration-state small {
-		color: var(--color-ivory-500);
-	}
-	.registration-state a {
+	.document-link {
 		display: inline-flex;
-		min-height: 3.25rem;
+		min-height: 3rem;
 		align-items: center;
 		justify-content: space-between;
-		padding-inline: 1rem;
-		background: var(--color-vermilion-650);
-		color: var(--color-ivory-50);
+		gap: 1rem;
+		padding: 0.75rem 1rem;
+		border: 1px solid var(--border-gold);
+		background: var(--color-ink-900);
+		color: var(--color-gold-300);
+		font-size: 0.76rem;
 		font-weight: 700;
 		text-decoration: none;
+	}
+	.document-link:hover {
+		background: var(--color-ink-950);
+	}
+	.submission-link {
+		border-color: var(--color-vermilion-500);
+		background: var(--color-vermilion-650);
+		color: var(--color-ivory-50);
+	}
+	.submission-pending {
+		margin: 0;
+		color: var(--color-ivory-500);
+		font-size: 0.78rem;
 	}
 	.related-section {
 		border-top: 1px solid var(--border-soft);
@@ -326,8 +335,7 @@ const modeJapanese =
 	@media (max-width: 52rem) {
 		.detail-grid,
 		.information-grid,
-		.rules-grid,
-		.registration-grid {
+		.rules-grid {
 			grid-template-columns: 1fr;
 		}
 		.detail-media {

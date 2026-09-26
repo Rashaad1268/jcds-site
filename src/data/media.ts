@@ -71,7 +71,15 @@ export const competitionMedia: Record<CompetitionSlug, CompetitionMedia> = {
 		credit: "MaedaAkihiko · CC BY-SA 4.0 · Cropped and colour-adjusted",
 		objectPosition: "46% 68%",
 	},
-	"display-competition": origata,
+	"display-competition": {
+		src: "/assets/images/jap_display.jpeg",
+		width: 1312,
+		height: 1199,
+		alt: "A miniature Japanese garden display with Mount Fuji, a pagoda, sakura trees, and a torii gate.",
+		caption: "A miniature Japanese garden display with Mount Fuji and sakura.",
+		sourceUrl: "",
+		credit: "",
+	},
 	"japanese-art": {
 		src: "/assets/images/rough-waves.webp",
 		width: 1800,
