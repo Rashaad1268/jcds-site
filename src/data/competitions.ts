@@ -106,7 +106,7 @@ export const competitions = [
 		modeLabel: "Online submission",
 		dates: ONLINE_DATES,
 		rulesPdfUrl: "/rules/video-presentation-rules.pdf",
-		submissionFormUrl: null,
+		submissionFormUrl: "https://forms.gle/Jqyrkzh8bn7LdDXu5",
 		summary: "Students can submit a video presentation for this inter-school competition.",
 		submissionNote: ONLINE_SUBMISSION_NOTE,
 	},
