@@ -49,8 +49,8 @@ Use secure Google Forms links, for example:
 schoolRegistrationFormUrl: "https://forms.gle/your-form-id";
 submissionFormUrl: "https://forms.gle/your-form-id";
 ```
+The schedule is confirmed
 
-The schedule remains subject to confirmation until the club approves the final dates and arrangements.
 
 ## Blog
 
