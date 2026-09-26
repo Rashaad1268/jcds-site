@@ -76,7 +76,7 @@ export const competitionMedia: Record<CompetitionSlug, CompetitionMedia> = {
 		width: 1312,
 		height: 1199,
 		alt: "A miniature Japanese garden display with Mount Fuji, a pagoda, sakura trees, and a torii gate.",
-		caption: "A miniature Japanese garden display with Mount Fuji and sakura.",
+		caption: "An example Japanese display",
 		sourceUrl: "",
 		credit: "",
 	},
