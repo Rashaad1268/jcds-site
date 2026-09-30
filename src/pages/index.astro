@@ -16,6 +16,22 @@ const schoolRegistrationFormUrl = isGoogleFormUrl(registration.schoolRegistratio
 	description="MUSUBI 2026 brings Sri Lankan schools together through Japanese language, culture, creativity, and inter-school competition."
 	socialImage="/assets/social/musubi-social.png"
 >
+	<link
+		slot="head"
+		rel="preload"
+		as="image"
+		href="/assets/images/soami-landscape-mobile.webp"
+		media="(max-width: 56rem)"
+		fetchpriority="high"
+	/>
+	<link
+		slot="head"
+		rel="preload"
+		as="image"
+		href="/assets/images/soami-landscape.webp"
+		media="(min-width: 56.001rem)"
+		fetchpriority="high"
+	/>
 	<section class="hero" aria-labelledby="hero-title">
 		<div class="hero-ink" aria-hidden="true"></div>
 		<div class="site-container-wide hero-grid">
@@ -23,11 +39,10 @@ const schoolRegistrationFormUrl = isGoogleFormUrl(registration.schoolRegistratio
 				<p class="eyebrow">Japanese Club · D. S. Senanayake College</p>
 				<img
 					class="musubi-wordmark"
-					src="/assets/brand/musubi-horizontal.png"
+					src="/assets/brand/musubi-horizontal.webp"
 					width="1489"
 					height="533"
 					alt=""
-					fetchpriority="high"
 				/>
 				<h1 id="hero-title">MUSUBI <span>2026</span></h1>
 				<p class="hero-lede">
@@ -45,16 +60,16 @@ const schoolRegistrationFormUrl = isGoogleFormUrl(registration.schoolRegistratio
 				<div class="art-mat">
 					<img
 						src="/assets/images/zeshin-sun-plum.webp"
-						width="1400"
-						height="1773"
+						width="1200"
+						height="1520"
 						alt="A red sun among spare plum branches in an Edo-period lacquer painting."
 						fetchpriority="high"
 					/>
 					<img
 						class="year-mark"
-						src="/assets/brand/musubi-26.png"
-						width="900"
-						height="493"
+						src="/assets/brand/musubi-26.webp"
+						width="620"
+						height="340"
 						alt=""
 						aria-hidden="true"
 					/>
@@ -118,9 +133,9 @@ const schoolRegistrationFormUrl = isGoogleFormUrl(registration.schoolRegistratio
 			<div class="club-copy">
 				<img
 					class="club-logo"
-					src="/assets/brand/club-logo-light.png"
-					width="1000"
-					height="901"
+					src="/assets/brand/club-logo-light.webp"
+					width="600"
+					height="541"
 					alt="Japanese Club of D. S. Senanayake College logo"
 					loading="lazy"
 				/>
@@ -150,7 +165,7 @@ const schoolRegistrationFormUrl = isGoogleFormUrl(registration.schoolRegistratio
 				rgb(15 13 11 / 0.5) 72%,
 				rgb(15 13 11 / 0.88)
 			),
-			url("/assets/images/soami-landscape.webp") center / cover;
+			url("/assets/images/soami-landscape-mobile.webp") center / cover;
 	}
 	.hero::before {
 		position: absolute;
@@ -674,6 +689,19 @@ const schoolRegistrationFormUrl = isGoogleFormUrl(registration.schoolRegistratio
 		}
 		.vertical-note {
 			display: none;
+		}
+	}
+
+	@media (min-width: 56.001rem) {
+		.hero {
+			background-image:
+				linear-gradient(
+					112deg,
+					rgb(15 13 11 / 0.96) 0 48%,
+					rgb(15 13 11 / 0.5) 72%,
+					rgb(15 13 11 / 0.88)
+				),
+				url("/assets/images/soami-landscape.webp");
 		}
 	}
 

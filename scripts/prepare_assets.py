@@ -207,9 +207,25 @@ def main() -> None:
     transparent_logo("club-logo-light.png", "club-logo-light.png", (1000, 1000))
     transparent_logo("club-logo-dark.png", "club-logo-dark.png", (1000, 1000))
 
+    for name, maximum, quality in (
+        ("musubi-horizontal", (1489, 533), 86),
+        ("musubi-26", (620, 340), 88),
+        ("club-logo-light", (600, 600), 86),
+    ):
+        with Image.open(BRAND / f"{name}.png") as source:
+            image = source.convert("RGBA")
+            image.thumbnail(maximum, Image.Resampling.LANCZOS, reducing_gap=3.0)
+            save_webp(image, BRAND / f"{name}.webp", quality)
+
+    with Image.open(BRAND / "club-logo-light.png") as source:
+        image = source.convert("RGBA")
+        image.thumbnail((128, 128), Image.Resampling.LANCZOS, reducing_gap=3.0)
+        save_webp(image, BRAND / "club-logo-light-small.webp", 86)
+
     # Public-domain artworks: resize only, preserving the original compositions.
-    save_webp(contain(open_verified("zeshin.jpg"), (1400, 1800)), IMAGES / "zeshin-sun-plum.webp", 88)
-    save_webp(contain(open_verified("soami.jpg"), (2000, 1500)), IMAGES / "soami-landscape.webp", 86)
+    save_webp(contain(open_verified("zeshin.jpg"), (1200, 1520)), IMAGES / "zeshin-sun-plum.webp", 78)
+    save_webp(contain(open_verified("soami.jpg"), (1600, 1200)), IMAGES / "soami-landscape.webp", 78)
+    save_webp(contain(open_verified("soami.jpg"), (900, 675)), IMAGES / "soami-landscape-mobile.webp", 76)
     save_webp(contain(open_verified("rough-waves.jpg"), (1800, 1800)), IMAGES / "rough-waves.webp", 88)
     save_webp(contain(open_verified("origata.jpg"), (1200, 1600)), IMAGES / "origata-tehon.webp", 88)
     # Documentary photography: subtle crops and tone only; captions retain context.
