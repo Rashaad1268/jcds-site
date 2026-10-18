@@ -51,7 +51,7 @@ const modeJapanese =
 				
 				<div class="mt-6">
 					{
-						competition.mode === "online" &&
+						(competition.mode === "online" || competition.slug === "display-competition") &&
 							(submissionFormUrl ? (
 								<a
 									class="document-link submission-link"
@@ -129,7 +129,7 @@ const modeJapanese =
 						Open competition rules PDF <span aria-hidden="true">↗</span>
 					</a>
 					{
-						competition.mode === "online" &&
+						(competition.mode === "online" || competition.slug === "display-competition") &&
 							(submissionFormUrl ? (
 								<a
 									class="document-link submission-link"

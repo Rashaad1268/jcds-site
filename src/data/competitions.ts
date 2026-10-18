@@ -172,7 +172,7 @@ export const competitions = [
 		modeLabel: "Physical submission",
 		dates: ART_DATES,
 		rulesPdfUrl: "/rules/japanese-display-rules.pdf",
-		submissionFormUrl: null,
+		submissionFormUrl: "https://forms.gle/P9yJebgvJmABeBfD6",
 		location: "D. S. Senanayake College, Colombo 07",
 		summary:
 			"Students can enter their Japanese themed displays through a physical submission to the college.",
